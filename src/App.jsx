@@ -15,7 +15,7 @@ import {
   FaUser, FaBolt, FaBriefcase, FaFolderOpen, FaGraduationCap,
   FaCertificate, FaTrophy, FaAws,
 } from 'react-icons/fa'
-import { SiLeetcode, SiPython, SiApachespark, SiGooglecloud, SiDatabricks, SiKubernetes, SiRedhatopenshift, SiFastapi, SiMlflow, SiPytorch, SiTensorflow, SiDocker, SiRedis, SiGithubactions, SiHelm, SiArgo } from 'react-icons/si'
+import { SiLeetcode, SiPython, SiApachespark, SiGooglecloud, SiDatabricks, SiKubernetes, SiRedhatopenshift, SiFastapi, SiMlflow, SiPytorch, SiTensorflow, SiDocker, SiRedis, SiGithubactions, SiHelm, SiArgo, SiScikitlearn } from 'react-icons/si'
 
 const TECH_STACK = [
   {
@@ -59,6 +59,7 @@ const TECH_STACK = [
       { name: 'MLFlow',      Icon: SiMlflow },
       { name: 'PyTorch',     Icon: SiPytorch },
       { name: 'TensorFlow',  Icon: SiTensorflow },
+      { name: 'scikit-learn', Icon: SiScikitlearn },
     ],
   },
   {
