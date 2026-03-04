@@ -167,7 +167,7 @@ html, body, #root {
   background: var(--grey-light);
   /* Ben-Day dots effect on photo */
   background-image:
-    radial-gradient(circle, rgba(10,10,10,0.12) 1.5px, transparent 1.5px);
+    radial-gradient(circle, rgba(170, 169, 169, 0.12) 1.5px, transparent 0.5px);
   background-size: 8px 8px;
   transform: rotate(1.2deg);
 }
