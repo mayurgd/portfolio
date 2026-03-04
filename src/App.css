@@ -274,15 +274,12 @@ html, body, #root {
   border-color: var(--cat-accent);
 }
 
-/* ========================================
-   HERO INLINE SOCIAL LINKS
-======================================== */
+/* ── Social links (now inside photo-panel, horizontal) ── */
 .hero-social {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   gap: 0;
-  align-self: center;
   background: var(--ink);
   border: var(--border);
   box-shadow: 3px 3px 0 var(--grey-mid);
@@ -292,17 +289,17 @@ html, body, #root {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 44px;
-  height: 44px;
+  width: 40px;
+  height: 40px;
   color: var(--white);
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   text-decoration: none;
-  border-bottom: 2px solid rgba(255,255,255,0.12);
+  border-right: 2px solid rgba(255,255,255,0.12);
   transition: background 0.15s, color 0.15s;
 }
 
 .hero-social-link:last-child {
-  border-bottom: none;
+  border-right: none;
 }
 
 .hero-social-link:hover {
@@ -467,12 +464,14 @@ html, body, #root {
 ======================================== */
 .hero-layout {
   display: grid;
-  grid-template-columns: 320px 1fr auto;
-  gap: 56px;
+  grid-template-columns: 260px 1fr;
+  gap: 40px;
   align-items: center;
   max-width: 1100px;
   width: 100%;
   margin: auto;
+  flex: 1;
+  min-height: 0;
 }
 
 /* ========================================
@@ -482,23 +481,34 @@ html, body, #root {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 16px;
+  gap: 10px;
+  align-self: stretch;
+  justify-content: center;
 }
 
 .photo-frame {
   position: relative;
-  width: 220px;
-  height: 260px;
+  width: 200px;
+  height: 240px;
   border: var(--border-thick);
-  box-shadow: 5px 5px 0 var(--ink);
+  box-shadow: 6px 6px 0 var(--ink), -3px -3px 0 #3b82f6;
   overflow: hidden;
   background: var(--grey-light);
-  /* Ben-Day dots effect on photo */
   background-image:
-    radial-gradient(circle, rgba(170, 169, 169, 0.12) 1.5px, transparent 0.5px);
+    radial-gradient(circle, rgba(59,130,246,0.08) 1.5px, transparent 0.5px);
   background-size: 8px 8px;
   transform: rotate(1.2deg);
 }
+
+.photo-corner {
+  position: absolute;
+  font-size: 0.8rem;
+  color: #3b82f6;
+  line-height: 1;
+  z-index: 2;
+}
+.photo-corner--tl { top: 5px; left: 7px; }
+.photo-corner--br { bottom: 26px; right: 7px; }
 
 .profile-photo {
   width: 100%;
@@ -525,19 +535,26 @@ html, body, #root {
 }
 
 .badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
   background: var(--ink);
   color: var(--white);
-  font-size: 1rem;
+  font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   text-align: center;
-  padding: 10px 18px;
+  padding: 8px 14px;
   border: var(--border);
-  line-height: 1.7;
   transform: rotate(-1deg);
-  box-shadow: 3px 3px 0 var(--grey-mid);
+  box-shadow: 3px 3px 0 #3b82f6;
+  clip-path: polygon(6px 0%, calc(100% - 6px) 0%, 100% 50%, calc(100% - 6px) 100%, 6px 100%, 0% 50%);
+  padding-inline: 20px;
 }
+
+.badge-role { letter-spacing: 0.14em; }
+.badge-sep  { color: #3b82f6; font-size: 0.6rem; }
 
 /* ========================================
    INFO PANEL
@@ -545,7 +562,8 @@ html, body, #root {
 .info-panel {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 14px;
+  min-width: 0;
 }
 
 /* Name block */
@@ -556,34 +574,81 @@ html, body, #root {
 }
 
 .name-tag {
-  font-size: 0.7rem;
-  font-weight: 400;
-  letter-spacing: 0.2em;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: var(--grey-dark);
-  font-style: italic;
-  border-bottom: 2px solid var(--ink);
-  padding-bottom: 2px;
-  display: block;
-  max-width: 600px;
+  color: #3b82f6;
+  background: var(--ink);
+  display: inline-block;
+  padding: 3px 12px;
+  clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 50%, calc(100% - 8px) 100%, 0 100%);
+  padding-right: 20px;
 }
 
 .hero-name {
-  font-size: clamp(3rem, 6vw, 5.5rem);
-  font-weight: 700;
-  line-height: 0.9;
+  font-size: clamp(3rem, 5.5vw, 5rem);
+  font-weight: 900;
+  line-height: 0.88;
   color: var(--ink);
   text-transform: uppercase;
   letter-spacing: -0.02em;
-  /* Ink outline gives comic depth */
   text-shadow:
-    3px 3px 0 var(--grey-mid),
-    -1px -1px 0 var(--grey-light);
+    4px 4px 0 #3b82f6,
+    7px 7px 0 rgba(0,0,0,0.12);
 }
 
 .name-accent {
-  color: var(--grey-dark);
+  color: var(--ink);
+  -webkit-text-stroke: 2px var(--ink);
   font-style: italic;
+  opacity: 0.35;
+}
+
+.hero-alias {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--grey-dark);
+  opacity: 0.5;
+  font-style: italic;
+  margin-top: 4px;
+}
+
+/* ── Hero stat chips ── */
+.hero-stats {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.hero-stat-chip {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: var(--ink);
+  color: var(--white);
+  padding: 6px 14px;
+  border: 2px solid var(--ink);
+  box-shadow: 3px 3px 0 #3b82f6;
+  min-width: 58px;
+  gap: 1px;
+}
+
+.hero-stat-val {
+  font-size: 1rem;
+  font-weight: 900;
+  letter-spacing: 0.02em;
+  line-height: 1;
+}
+
+.hero-stat-label {
+  font-size: 0.48rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  opacity: 0.55;
 }
 
 /* ========================================
@@ -593,10 +658,10 @@ html, body, #root {
   position: relative;
   background: var(--white);
   border: var(--border-thick);
-  padding: 16px 20px;
+  padding: 12px 16px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 8px;
   box-shadow: 4px 4px 0 var(--ink);
   max-width: 600px;
 }
@@ -623,8 +688,8 @@ html, body, #root {
 }
 
 .bio-text {
-  font-size: 0.88rem;
-  line-height: 1.65;
+  font-size: 0.82rem;
+  line-height: 1.6;
   color: var(--ink);
 }
 
@@ -638,43 +703,54 @@ html, body, #root {
 ======================================== */
 .contact-panel {
   border: var(--border);
-  padding: 14px 18px;
+  padding: 10px 16px;
   background: var(--ink);
   color: var(--white);
-  box-shadow: 3px 3px 0 var(--grey-mid);
+  box-shadow: 3px 3px 0 #3b82f6;
   max-width: 600px;
 }
 
 .contact-label {
-  font-size: 0.65rem;
-  letter-spacing: 0.25em;
+  font-size: 0.58rem;
+  letter-spacing: 0.22em;
   text-align: center;
-  margin-bottom: 10px;
-  opacity: 0.7;
+  margin-bottom: 8px;
+  opacity: 0.6;
+  text-transform: uppercase;
 }
 
 .contact-items {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  align-items: center;
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  gap: 0;
+  border-top: 1px solid rgba(255,255,255,0.12);
 }
 
 .contact-item {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 10px;
-  font-size: 1.05rem;
-  letter-spacing: 0.05em;
+  justify-content: center;
+  gap: 5px;
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  padding: 10px 8px;
+  border-right: 1px solid rgba(255,255,255,0.12);
+  text-align: center;
+}
+
+.contact-item:last-child {
+  border-right: none;
 }
 
 .contact-icon {
-  font-size: 1.15rem;
+  font-size: 1.1rem;
   flex-shrink: 0;
-  opacity: 0.85;
+  opacity: 0.7;
   display: flex;
   align-items: center;
   line-height: 1;
+  color: #3b82f6;
 }
 
 .contact-link {
@@ -683,6 +759,8 @@ html, body, #root {
   text-underline-offset: 3px;
   text-decoration-color: rgba(255,255,255,0.4);
   transition: text-decoration-color 0.2s;
+  font-size: 0.72rem;
+  word-break: break-all;
 }
 
 .contact-link:hover {

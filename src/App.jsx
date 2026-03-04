@@ -368,20 +368,46 @@ function App() {
         {/* ── Section content ── */}
         {active === 'home' && (
           <div className="hero-layout">
+
+            {/* ── Left: Photo panel ── */}
             <div className="photo-panel">
               <div className="photo-frame">
                 <img src={profilePlaceholder} alt="Mayur G D" className="profile-photo" />
                 <div className="photo-label">MAYUR G D</div>
+                <div className="photo-corner photo-corner--tl">✦</div>
+                <div className="photo-corner photo-corner--br">✦</div>
               </div>
-              <div className="badge">DATA SCIENTIST<br />& ML ENGINEER</div>
+              <div className="badge">
+                <span className="badge-role">DATA SCIENTIST</span>
+                <span className="badge-sep">✦</span>
+                <span className="badge-role">ML ENGINEER</span>
+              </div>
+              <div className="hero-social">
+                <a href="https://www.linkedin.com/in/mayur-g-d-a78a1a131/" target="_blank" rel="noopener noreferrer" className="hero-social-link" aria-label="LinkedIn"><FaLinkedin /></a>
+                <a href="https://github.com/mayurgd" target="_blank" rel="noopener noreferrer" className="hero-social-link" aria-label="GitHub"><FaGithub /></a>
+                <a href="https://leetcode.com/u/mayur_356/" target="_blank" rel="noopener noreferrer" className="hero-social-link" aria-label="LeetCode"><SiLeetcode /></a>
+              </div>
             </div>
 
+            {/* ── Right: Info panel ── */}
             <div className="info-panel">
+
+              {/* Identity block */}
               <div className="name-block">
-                <div className="name-tag">Mr</div>
+                <div className="name-tag">⚡ REAL NAME &nbsp;///&nbsp; DATA OPERATIVE</div>
                 <h1 className="hero-name">MAYUR <span className="name-accent">G D</span></h1>
+                <div className="hero-alias">[ ALIAS: THE DATA SPIDER ]</div>
               </div>
 
+              {/* Stat chips */}
+              <div className="hero-stats">
+                <div className="hero-stat-chip"><span className="hero-stat-val">5+</span><span className="hero-stat-label">YRS EXP</span></div>
+                <div className="hero-stat-chip"><span className="hero-stat-val">15+</span><span className="hero-stat-label">TECH STACK</span></div>
+                <div className="hero-stat-chip"><span className="hero-stat-val">GEN AI</span><span className="hero-stat-label">SPECIALIST</span></div>
+                <div className="hero-stat-chip"><span className="hero-stat-val">BLR</span><span className="hero-stat-label">BASE</span></div>
+              </div>
+
+              {/* Speech bubble */}
               <div className="speech-bubble">
                 <p className="bio-text">
                   I do my best work when there&apos;s a clear direction and something
@@ -389,24 +415,23 @@ function App() {
                   finding ways to improve along the way.
                 </p>
                 <p className="bio-text bio-text--second">
-                  Outside of work, I focus on discipline - whether it&apos;s fitness,
-                  finance, or learning new skills - because
-                  getting better in one area makes everything else easier.
+                  Outside of work, I focus on discipline - fitness, finance, or
+                  learning new skills; because getting better in one area makes
+                  everything else easier.
                 </p>
               </div>
 
+              {/* Contact dossier */}
               <div className="contact-panel">
-                <div className="contact-label">— CONTACT —</div>
+                <div className="contact-label">◆ FIELD CONTACT DOSSIER ◆</div>
                 <div className="contact-items">
                   <div className="contact-item">
                     <span className="contact-icon"><FaPhoneAlt /></span>
-                    <span>9483996212</span>
+                    <span>+91-9483996212</span>
                   </div>
                   <div className="contact-item">
                     <span className="contact-icon"><FaEnvelope /></span>
-                    <a href="mailto:mayur.dhage356@gmail.com" className="contact-link">
-                      mayur.dhage356@gmail.com
-                    </a>
+                    <a href="mailto:mayur.dhage356@gmail.com" className="contact-link">mayur.dhage356@gmail.com</a>
                   </div>
                   <div className="contact-item">
                     <span className="contact-icon"><FaMapMarkerAlt /></span>
@@ -415,18 +440,6 @@ function App() {
                 </div>
               </div>
 
-            </div>
-
-            <div className="hero-social">
-              <a href="https://www.linkedin.com/in/mayur-g-d-a78a1a131/" target="_blank" rel="noopener noreferrer" className="hero-social-link" aria-label="LinkedIn">
-                <FaLinkedin />
-              </a>
-              <a href="https://github.com/mayurgd" target="_blank" rel="noopener noreferrer" className="hero-social-link" aria-label="GitHub">
-                <FaGithub />
-              </a>
-              <a href="https://leetcode.com/u/mayur_356/" target="_blank" rel="noopener noreferrer" className="hero-social-link" aria-label="LeetCode">
-                <SiLeetcode />
-              </a>
             </div>
           </div>
         )}
