@@ -4,19 +4,107 @@ import profilePlaceholder from './assets/my_image_1.png'
 import {
   FaPhoneAlt, FaEnvelope, FaMapMarkerAlt, FaLinkedin, FaGithub,
   FaUser, FaBolt, FaBriefcase, FaFolderOpen, FaGraduationCap,
-  FaCertificate, FaTrophy,
+  FaCertificate, FaTrophy, FaAws,
 } from 'react-icons/fa'
-import { SiLeetcode } from 'react-icons/si'
+import { SiLeetcode, SiPython, SiApachespark, SiGooglecloud, SiDatabricks, SiKubernetes, SiRedhatopenshift, SiFastapi, SiMlflow, SiPytorch, SiTensorflow, SiDocker, SiRedis, SiGithubactions, SiHelm, SiArgo } from 'react-icons/si'
+
+const TECH_STACK = [
+  {
+    category: 'Programming Languages',
+    items: [
+      { name: 'Python',  Icon: SiPython },
+      { name: 'SQL' },
+      { name: 'PySpark', Icon: SiApachespark },
+    ],
+  },
+  {
+    category: 'Cloud & Infrastructure',
+    items: [
+      { name: 'GCP',        Icon: SiGooglecloud },
+      { name: 'Databricks', Icon: SiDatabricks },
+      { name: 'Azure' },
+      { name: 'Kubernetes', Icon: SiKubernetes },
+      { name: 'OpenShift',  Icon: SiRedhatopenshift },
+      { name: 'VertexAI' },
+      { name: 'AWS',        Icon: FaAws },
+    ],
+  },
+  {
+    category: 'AI / ML',
+    items: [
+      { name: 'Supervised & Unsupervised' },
+      { name: 'Deep Learning' },
+      { name: 'Time Series' },
+      { name: 'NLP' },
+      { name: 'GenAI' },
+      { name: 'AgenticAI' },
+      { name: 'RAG' },
+      { name: 'LLM' },
+    ],
+  },
+  {
+    category: 'Frameworks & Libraries',
+    items: [
+      { name: 'FastAPI',     Icon: SiFastapi },
+      { name: 'Langfuse' },
+      { name: 'MLFlow',      Icon: SiMlflow },
+      { name: 'PyTorch',     Icon: SiPytorch },
+      { name: 'TensorFlow',  Icon: SiTensorflow },
+    ],
+  },
+  {
+    category: 'Agent Frameworks',
+    items: [
+      { name: 'LangChain' },
+      { name: 'LangGraph' },
+      { name: 'CrewAI' },
+      { name: 'MS Agent Framework' },
+    ],
+  },
+  {
+    category: 'Data & DevOps Tools',
+    items: [
+      { name: 'Docker',         Icon: SiDocker },
+      { name: 'Redis',          Icon: SiRedis },
+      { name: 'GitHub Actions', Icon: SiGithubactions },
+      { name: 'Helm',           Icon: SiHelm },
+      { name: 'Argo',           Icon: SiArgo },
+      { name: 'OpenShift',      Icon: SiRedhatopenshift },
+      { name: 'Backstage' },
+    ],
+  },
+]
 
 const NAV = [
   { id: 'home',           Icon: FaUser,          label: 'Home'         },
-  { id: 'skills',         Icon: FaBolt,          label: 'Skills'       },
+  { id: 'skills',         Icon: FaBolt,          label: 'Tech Stack'   },
   { id: 'experience',     Icon: FaBriefcase,     label: 'Experience'   },
   { id: 'projects',       Icon: FaFolderOpen,    label: 'Projects'     },
   { id: 'education',      Icon: FaGraduationCap, label: 'Education'    },
   { id: 'certifications', Icon: FaCertificate,   label: 'Certifications'},
   { id: 'awards',         Icon: FaTrophy,        label: 'Awards'       },
 ]
+
+/* ── Tech Stack section ── */
+function TechStack() {
+  return (
+    <div className="techstack">
+      {TECH_STACK.map(({ category, items }) => (
+        <div key={category} className="techstack-col">
+          <div className="techstack-col-header">{category}</div>
+          <ul className="techstack-list">
+            {items.map(({ name, Icon }) => (
+              <li key={name} className="techstack-item">
+                {Icon && <Icon className="techstack-item-icon" />}
+                <span>{name}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+  )
+}
 
 /* ── PLACEHOLDER panel for upcoming sections ── */
 function ComingSoon({ label }) {
@@ -37,29 +125,25 @@ function App() {
       <div className="halftone-overlay" />
       <div className="panel-grid" />
 
-
-
-
-
-      {/* ── Left nav strip ── */}
-      <div className="nav-strip">
-        {NAV.map(({ id, Icon, label }) => (
-          <button
-            key={id}
-            className={`nav-strip-btn${active === id ? ' nav-strip-btn--active' : ''}`}
-            onClick={() => setActive(id)}
-            aria-label={label}
-          >
-            <Icon className="nav-strip-icon" />
-            <span className="nav-strip-label">{label}</span>
-          </button>
-        ))}
-      </div>
-
       <main className="hero-panel">
         {/* Corner tags */}
         <span className="corner-tag">ISSUE #001</span>
         <span className="corner-tag corner-tag--right">2026</span>
+
+        {/* ── Chapter nav tabs ── */}
+        <nav className="chapter-nav">
+          {NAV.map(({ id, Icon, label }, i) => (
+            <button
+              key={id}
+              className={`chapter-nav-btn${active === id ? ' chapter-nav-btn--active' : ''}`}
+              onClick={() => setActive(id)}
+            >
+              <span className="chapter-num">#{String(i + 1).padStart(2, '0')}</span>
+              <Icon className="chapter-icon" />
+              <span className="chapter-label">{label}</span>
+            </button>
+          ))}
+        </nav>
 
         {/* Action caption */}
         <div className="caption-box caption-box--top">
@@ -132,7 +216,13 @@ function App() {
           </div>
         )}
 
-        {active !== 'home' && (
+        {active === 'skills' && (
+          <div className="section-body section-body--wide">
+            <TechStack />
+          </div>
+        )}
+
+        {active !== 'home' && active !== 'skills' && (
           <div className="section-body">
             <ComingSoon label={NAV.find(n => n.id === active).label} />
           </div>

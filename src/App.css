@@ -42,66 +42,149 @@ html, body, #root {
 /* ========================================
    LEFT NAV STRIP
 ======================================== */
-.nav-strip {
-  position: fixed;
-  left: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 20;
+/* ========================================
+   CHAPTER NAV TABS
+======================================== */
+.chapter-nav {
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-bottom: 10px;
+  margin-top: 0;
+}
+
+.chapter-nav-btn {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 16px;
   background: var(--ink);
+  color: var(--grey-mid);
   border: var(--border);
-  border-left: none;
+  font-family: inherit;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transform: skewX(-4deg);
+  transition: background 0.15s, color 0.15s, box-shadow 0.15s;
+  box-shadow: 2px 2px 0 var(--grey-mid);
+  white-space: nowrap;
+}
+
+.chapter-nav-btn > * {
+  transform: skewX(4deg);
+}
+
+.chapter-nav-btn:hover {
+  color: var(--white);
   box-shadow: 3px 3px 0 var(--grey-mid);
 }
 
-.nav-strip-btn {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 10px 16px;
-  background: transparent;
-  border: none;
-  border-bottom: 2px solid rgba(255,255,255,0.12);
-  color: var(--grey-mid);
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: background 0.15s, color 0.15s;
-  font-family: inherit;
-  white-space: nowrap;
-  text-align: left;
+.chapter-nav-btn--active {
+  background: var(--white);
+  color: var(--ink);
+  border-color: var(--ink);
+  box-shadow: 3px 3px 0 var(--ink);
 }
 
-.nav-strip-btn:last-child {
-  border-bottom: none;
-}
-
-.nav-strip-btn:hover {
-  background: rgba(255,255,255,0.08);
-  color: var(--white);
-}
-
-.nav-strip-btn--active {
+.chapter-nav-btn--active:hover {
   background: var(--white);
   color: var(--ink);
 }
 
-.nav-strip-btn--active:hover {
-  background: var(--white);
-  color: var(--ink);
+.chapter-num {
+  font-size: 0.65rem;
+  opacity: 0.5;
+  letter-spacing: 0.05em;
 }
 
-.nav-strip-icon {
+.chapter-icon {
   font-size: 1rem;
   flex-shrink: 0;
 }
 
-.nav-strip-label {
-  font-size: 0.65rem;
+.chapter-label {
+  font-size: 0.8rem;
+}
+
+/* ========================================
+   TECH STACK SECTION
+======================================== */
+.section-body--wide {
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 8px 0;
+}
+
+.techstack {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  width: 100%;
+  max-width: 780px;
+  border: var(--border-thick);
+  box-shadow: 5px 5px 0 var(--ink);
+  overflow: hidden;
+}
+
+.techstack-col {
+  border-right: var(--border);
+  display: flex;
+  flex-direction: column;
+}
+
+.techstack-col:last-child {
+  border-right: none;
+}
+
+.techstack-col-header {
+  background: var(--ink);
+  color: var(--white);
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 7px 12px;
+  line-height: 1.4;
+  min-height: 40px;
+  display: flex;
+  align-items: center;
+}
+
+.techstack-list {
+  list-style: none;
+  margin: 0;
+  padding: 10px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  background: var(--white);
+  flex: 1;
+}
+
+.techstack-item {
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--ink);
+  padding: 4px 0;
+  border-bottom: 1px solid var(--grey-light);
+  text-transform: none;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.techstack-item-icon {
+  font-size: 1rem;
+  flex-shrink: 0;
+  opacity: 0.75;
+}
+
+.techstack-item:last-child {
+  border-bottom: none;
 }
 
 /* ========================================
@@ -178,7 +261,7 @@ html, body, #root {
   background: var(--white);
   border: none;
   box-shadow: none;
-  padding: 48px 80px 64px;
+  padding: 20px 80px 64px;
   transform: none;
   display: flex;
   flex-direction: column;
@@ -277,7 +360,7 @@ html, body, #root {
 }
 
 .caption-box--top {
-  margin-bottom: 32px;
+  margin-bottom: 14px;
   display: block;
 }
 
@@ -558,7 +641,7 @@ html, body, #root {
     min-height: 100vh;
   }
 
-  .nav-strip {
+  .chapter-nav-btn .chapter-label {
     display: none;
   }
 
