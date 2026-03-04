@@ -372,35 +372,43 @@ const CERTS = [
 function Certifications() {
   return (
     <div className="cert-wrapper">
-      <div className="cert-grid">
+      <div className="cert-timeline">
         {CERTS.map(({ id, title, issuer, issued, expires, accent, tag, icon, level }, idx) => (
-          <div key={id} className="cert-card" style={{ '--cert-accent': accent }}>
-            <div className="cert-card-top">
-              <span className="cert-index">#{String(idx + 1).padStart(2, '0')}</span>
-              <span className="cert-tag">{tag}</span>
-            </div>
-            <div className="cert-icon-wrap">
-              <span className="cert-icon">{icon}</span>
-            </div>
-            <div className="cert-level">{level}</div>
-            <div className="cert-title">{title}</div>
-            <div className="cert-issuer">{issuer}</div>
-            <div className="cert-dates">
-              <div className="cert-date-item">
-                <span className="cert-date-label">ISSUED</span>
-                <span className="cert-date-val">{issued}</span>
+          <div key={id} className="cert-row">
+            <div className="cert-spine">
+              <div className="cert-spine-icon" style={{ background: accent, borderColor: accent }}>
+                <span className="cert-spine-emoji">{icon}</span>
               </div>
-              {expires ? (
-                <div className="cert-date-item">
-                  <span className="cert-date-label">EXPIRES</span>
-                  <span className="cert-date-val">{expires}</span>
+              {idx < CERTS.length - 1 && <div className="cert-spine-line" style={{ background: `linear-gradient(to bottom, ${accent}, var(--grey-light))` }} />}
+            </div>
+            <div className="cert-card" style={{ '--cert-accent': accent }}>
+              <div className="cert-card-top">
+                <div className="cert-left">
+                  <span className="cert-level">{level}</span>
+                  <span className="cert-title">{title}</span>
+                  <span className="cert-issuer">{issuer}</span>
                 </div>
-              ) : (
-                <div className="cert-date-item">
-                  <span className="cert-date-label">EXPIRES</span>
-                  <span className="cert-date-val cert-date-never">NEVER ✦</span>
+                <div className="cert-right">
+                  <span className="cert-tag">{tag}</span>
+                  <div className="cert-dates">
+                    <div className="cert-date-item">
+                      <span className="cert-date-label">ISSUED</span>
+                      <span className="cert-date-val">{issued}</span>
+                    </div>
+                    {expires ? (
+                      <div className="cert-date-item">
+                        <span className="cert-date-label">EXPIRES</span>
+                        <span className="cert-date-val">{expires}</span>
+                      </div>
+                    ) : (
+                      <div className="cert-date-item">
+                        <span className="cert-date-label">EXPIRES</span>
+                        <span className="cert-date-val cert-date-never">NEVER ✦</span>
+                      </div>
+                    )}
+                  </div>
                 </div>
-              )}
+              </div>
             </div>
           </div>
         ))}
