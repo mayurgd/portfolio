@@ -1,6 +1,15 @@
 import { useState } from 'react'
 import './App.css'
 import profilePlaceholder from './assets/my_image_1.png'
+import sqlIcon from './assets/icons/sql.png'
+import azureIcon from './assets/icons/azure.png'
+import vertexaiIcon from './assets/icons/vertexai.png'
+import langfuseIcon from './assets/icons/langfuse.png'
+import langchainIcon from './assets/icons/langchain.png'
+import langgraphIcon from './assets/icons/langgraph.png'
+import crewaiIcon from './assets/icons/crewai.png'
+import microsoftIcon from './assets/icons/microsoft.png'
+import backstageIcon from './assets/icons/backstage.png'
 import {
   FaPhoneAlt, FaEnvelope, FaMapMarkerAlt, FaLinkedin, FaGithub,
   FaUser, FaBolt, FaBriefcase, FaFolderOpen, FaGraduationCap,
@@ -13,7 +22,7 @@ const TECH_STACK = [
     category: 'Programming Languages',
     items: [
       { name: 'Python',  Icon: SiPython },
-      { name: 'SQL' },
+      { name: 'SQL', iconSrc: sqlIcon },
       { name: 'PySpark', Icon: SiApachespark },
     ],
   },
@@ -22,10 +31,10 @@ const TECH_STACK = [
     items: [
       { name: 'GCP',        Icon: SiGooglecloud },
       { name: 'Databricks', Icon: SiDatabricks },
-      { name: 'Azure' },
+      { name: 'Azure', iconSrc: azureIcon },
       { name: 'Kubernetes', Icon: SiKubernetes },
       { name: 'OpenShift',  Icon: SiRedhatopenshift },
-      { name: 'VertexAI' },
+      { name: 'VertexAI', iconSrc: vertexaiIcon },
       { name: 'AWS',        Icon: FaAws },
     ],
   },
@@ -46,7 +55,7 @@ const TECH_STACK = [
     category: 'Frameworks & Libraries',
     items: [
       { name: 'FastAPI',     Icon: SiFastapi },
-      { name: 'Langfuse' },
+      { name: 'Langfuse', iconSrc: langfuseIcon },
       { name: 'MLFlow',      Icon: SiMlflow },
       { name: 'PyTorch',     Icon: SiPytorch },
       { name: 'TensorFlow',  Icon: SiTensorflow },
@@ -55,10 +64,10 @@ const TECH_STACK = [
   {
     category: 'Agent Frameworks',
     items: [
-      { name: 'LangChain' },
-      { name: 'LangGraph' },
-      { name: 'CrewAI' },
-      { name: 'MS Agent Framework' },
+      { name: 'LangChain', iconSrc: langchainIcon },
+      { name: 'LangGraph', iconSrc: langgraphIcon },
+      { name: 'CrewAI', iconSrc: crewaiIcon },
+      { name: 'MS Agent Framework', iconSrc: microsoftIcon },
     ],
   },
   {
@@ -70,7 +79,7 @@ const TECH_STACK = [
       { name: 'Helm',           Icon: SiHelm },
       { name: 'Argo',           Icon: SiArgo },
       { name: 'OpenShift',      Icon: SiRedhatopenshift },
-      { name: 'Backstage' },
+      { name: 'Backstage', iconSrc: backstageIcon },
     ],
   },
 ]
@@ -93,9 +102,10 @@ function TechStack() {
         <div key={category} className="techstack-col">
           <div className="techstack-col-header">{category}</div>
           <ul className="techstack-list">
-            {items.map(({ name, Icon }) => (
+            {items.map(({ name, Icon, iconSrc }) => (
               <li key={name} className="techstack-item">
                 {Icon && <Icon className="techstack-item-icon" />}
+                {iconSrc && <img src={iconSrc} alt={name} className="techstack-item-icon" />}
                 <span>{name}</span>
               </li>
             ))}
