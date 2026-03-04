@@ -714,6 +714,357 @@ html, body, #root {
 }
 
 /* ========================================
+   EXPERIENCE SECTION
+======================================== */
+.exp-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  max-width: 720px;
+}
+
+.exp-company-card {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  background: var(--white);
+  color: var(--ink);
+  border: var(--border-thick);
+  padding: 18px 24px;
+  box-shadow: 5px 5px 0 var(--grey-mid);
+}
+
+.exp-company-logo {
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.exp-company-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.exp-company-name {
+  font-size: 1.35rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.exp-company-tenure {
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  opacity: 0.55;
+  text-transform: uppercase;
+}
+
+.exp-total-badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: var(--ink);
+  color: var(--white);
+  border: var(--border);
+  padding: 10px 16px;
+  min-width: 76px;
+  flex-shrink: 0;
+}
+
+.exp-total-num {
+  font-size: 1.5rem;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+.exp-total-unit {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  margin: 0 2px;
+}
+
+.exp-total-label {
+  font-size: 0.55rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  opacity: 0.55;
+  margin-top: 4px;
+}
+
+.exp-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding-left: 8px;
+}
+
+.exp-role-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.exp-role-connector {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+  padding-top: 4px;
+}
+
+.exp-role-dot {
+  width: 14px;
+  height: 14px;
+  background: var(--ink);
+  border: 3px solid var(--ink);
+  flex-shrink: 0;
+}
+
+.exp-role-line {
+  width: 3px;
+  flex: 1;
+  min-height: 28px;
+  background: var(--grey-mid);
+  margin: 4px 0;
+}
+
+.exp-role-card {
+  flex: 1;
+  background: var(--white);
+  border: var(--border);
+  border-left: 5px solid var(--ink);
+  padding: 14px 18px;
+  margin-bottom: 12px;
+  box-shadow: 3px 3px 0 var(--grey-light);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  transition: box-shadow 0.15s, transform 0.15s;
+}
+
+.exp-role-card:hover {
+  box-shadow: 5px 5px 0 var(--grey-mid);
+  transform: translate(-1px, -1px);
+}
+
+.exp-role-num {
+  font-size: 0.65rem;
+  opacity: 0.4;
+  letter-spacing: 0.08em;
+  font-weight: 900;
+}
+
+.exp-role-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+.exp-role-period {
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  color: var(--grey-dark);
+  opacity: 0.75;
+}
+
+/* ========================================
+   EDUCATION SECTION
+======================================== */
+.edu-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+  max-width: 680px;
+}
+
+.edu-timeline {
+  display: flex;
+  flex-direction: column;
+}
+
+.edu-entry {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.edu-spine {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+  padding-top: 6px;
+}
+
+.edu-spine-dot {
+  width: 16px;
+  height: 16px;
+  background: var(--edu-accent);
+  border: 3px solid var(--ink);
+  flex-shrink: 0;
+  transform: rotate(45deg);
+}
+
+.edu-spine-line {
+  width: 3px;
+  min-height: 36px;
+  background: linear-gradient(to bottom, var(--edu-accent), transparent);
+  margin: 6px 0;
+}
+
+.edu-card {
+  flex: 1;
+  background: var(--white);
+  border: var(--border);
+  border-left: 6px solid var(--edu-accent);
+  padding: 16px 20px;
+  margin-bottom: 14px;
+  box-shadow: 4px 4px 0 var(--grey-light);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: box-shadow 0.15s, transform 0.15s;
+  position: relative;
+  overflow: hidden;
+}
+
+.edu-card::before {
+  content: '';
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  width: 80px;
+  height: 80px;
+  background: var(--edu-accent);
+  opacity: 0.06;
+  transform: rotate(45deg);
+  pointer-events: none;
+}
+
+.edu-card:hover {
+  box-shadow: 6px 6px 0 var(--grey-mid);
+  transform: translate(-2px, -2px);
+}
+
+.edu-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.edu-tag {
+  font-size: 0.6rem;
+  font-weight: 900;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  background: var(--edu-accent);
+  color: var(--ink);
+  padding: 3px 10px;
+  clip-path: polygon(0 0, calc(100% - 6px) 0, 100% 50%, calc(100% - 6px) 100%, 0 100%);
+  padding-right: 16px;
+}
+
+.edu-index {
+  font-size: 0.65rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  opacity: 0.3;
+}
+
+.edu-institution {
+  font-size: 1.2rem;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink);
+  line-height: 1.2;
+}
+
+.edu-degree {
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: var(--grey-dark);
+  font-style: italic;
+}
+
+.edu-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 4px;
+  padding-top: 10px;
+  border-top: 2px dashed var(--grey-light);
+}
+
+.edu-period {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--grey-dark);
+  text-transform: uppercase;
+}
+
+.edu-stats {
+  display: flex;
+  gap: 12px;
+  padding: 4px 4px 6px 2px;
+}
+
+.edu-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: var(--ink);
+  color: var(--white);
+  padding: 6px 12px;
+  border: 2px solid var(--ink);
+  min-width: 64px;
+  position: relative;
+  box-shadow: 4px 4px 0 var(--edu-accent);
+}
+
+.edu-stat-value {
+  font-size: 0.95rem;
+  font-weight: 900;
+  letter-spacing: 0.02em;
+  line-height: 1;
+}
+
+.edu-stat-label {
+  font-size: 0.5rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  opacity: 0.6;
+  margin-top: 3px;
+}
+
+.edu-scroll-tag {
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--grey-mid);
+  text-align: center;
+  border-top: 2px solid var(--grey-light);
+  padding-top: 12px;
+}
+
+/* ========================================
    RESPONSIVE
 ======================================== */
 @media (max-width: 700px) {

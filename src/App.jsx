@@ -10,6 +10,7 @@ import langgraphIcon from './assets/icons/langgraph.png'
 import crewaiIcon from './assets/icons/crewai.png'
 import microsoftIcon from './assets/icons/microsoft.png'
 import backstageIcon from './assets/icons/backstage.png'
+import deloitteIcon from './assets/icons/deloitte.png'
 import {
   FaPhoneAlt, FaEnvelope, FaMapMarkerAlt, FaLinkedin, FaGithub,
   FaUser, FaBolt, FaBriefcase, FaFolderOpen, FaGraduationCap,
@@ -107,11 +108,6 @@ const NAV = [
 function TechStack() {
   return (
     <div className="techstack-wrapper">
-      <div className="techstack-section-title">
-        <span className="techstack-title-line" />
-        <span className="techstack-title-text">TECH ARSENAL</span>
-        <span className="techstack-title-line" />
-      </div>
       <div className="techstack">
         {TECH_STACK.map(({ category, accent, chipStyle, items }, idx) => (
           <div key={category} className="techstack-col" style={{ '--cat-accent': accent }}>
@@ -139,6 +135,140 @@ function TechStack() {
           </div>
         ))}
       </div>
+    </div>
+  )
+}
+
+/* ── Experience section ── */
+function Experience() {
+  const roles = [
+    {
+      title: 'Consultant',
+      period: '01 Jun 2023 — 12 Apr 2026',
+      from: '2023-06-01',
+      to: '2026-04-12',
+    },
+    {
+      title: 'Analyst',
+      period: '17 Aug 2020 — 31 May 2023',
+      from: '2020-08-17',
+      to: '2023-05-31',
+    },
+  ]
+
+  const totalStart = new Date('2020-08-17')
+  const totalEnd   = new Date('2026-04-12')
+  const totalMs    = totalEnd - totalStart
+  const totalYears = Math.floor(totalMs / (1000 * 60 * 60 * 24 * 365))
+  const totalMonths = Math.floor((totalMs / (1000 * 60 * 60 * 24 * 30.44)) % 12)
+
+  return (
+    <div className="exp-wrapper">
+      <div className="exp-company-card">
+        <img src={deloitteIcon} alt="Deloitte" className="exp-company-logo" />
+        <div className="exp-company-info">
+          <div className="exp-company-name">Deloitte USI</div>
+          <div className="exp-company-tenure">
+            {totalYears} yr {totalMonths} mo &nbsp;·&nbsp; Aug 2020 — Apr 2026
+          </div>
+        </div>
+        <div className="exp-total-badge">
+          <span className="exp-total-num">{totalYears}<span className="exp-total-unit">yr</span>{totalMonths}<span className="exp-total-unit">mo</span></span>
+          <span className="exp-total-label">TOTAL EXP</span>
+        </div>
+      </div>
+
+      <div className="exp-timeline">
+        {roles.map(({ title, period }, i) => (
+          <div key={title} className="exp-role-row">
+            <div className="exp-role-connector">
+              <div className="exp-role-dot" />
+              {i < roles.length - 1 && <div className="exp-role-line" />}
+            </div>
+            <div className="exp-role-card">
+              <div className="exp-role-num">#{String(i + 1).padStart(2, '0')}</div>
+              <div className="exp-role-title">{title}</div>
+              <div className="exp-role-period">{period}</div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+/* ── Education section ── */
+const EDUCATION = [
+  {
+    id: 'pes',
+    institution: 'PES University',
+    degree: 'B.Tech — Electronics & Communication Engineering',
+    period: '2016 — 2020',
+    accent: '#3b82f6',
+    tag: 'UNDERGRADUATE',
+    stats: [
+      { label: 'GPA', value: '9.24' },
+    ],
+  },
+  {
+    id: 'jain',
+    institution: 'Jain College',
+    degree: 'Pre-University Course — PCME',
+    period: '2014 — 2016',
+    accent: '#22c55e',
+    tag: 'PRE-UNIVERSITY',
+    stats: [
+      { label: 'SCORE', value: '95.83%' },
+    ],
+  },
+  {
+    id: 'school',
+    institution: 'Sadhguru Sainath International School',
+    degree: 'Secondary School',
+    period: 'Graduated 2014',
+    accent: '#f97316',
+    tag: 'SECONDARY',
+    stats: [
+      { label: 'GPA', value: '10.0' },
+    ],
+  },
+]
+
+function Education() {
+  return (
+    <div className="edu-wrapper">
+      <div className="edu-timeline">
+        {EDUCATION.map(({ id, institution, degree, period, accent, tag, stats }, idx) => (
+          <div key={id} className="edu-entry" style={{ '--edu-accent': accent }}>
+            <div className="edu-spine">
+              <div className="edu-spine-dot" />
+              {idx < EDUCATION.length - 1 && <div className="edu-spine-line" />}
+            </div>
+            <div className="edu-card">
+              <div className="edu-card-header">
+                <span className="edu-tag">{tag}</span>
+                <span className="edu-index">#{String(idx + 1).padStart(2, '0')}</span>
+              </div>
+              <div className="edu-institution">{institution}</div>
+              <div className="edu-degree">{degree}</div>
+              <div className="edu-footer">
+                <span className="edu-period">{period}</span>
+                {stats.length > 0 && (
+                  <div className="edu-stats">
+                    {stats.map(({ label, value }) => (
+                      <div key={label} className="edu-stat">
+                        <span className="edu-stat-value">{value}</span>
+                        <span className="edu-stat-label">{label}</span>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+      <div className="edu-scroll-tag">KNOWLEDGE ARC — ORIGIN STORY</div>
     </div>
   )
 }
@@ -259,7 +389,19 @@ function App() {
           </div>
         )}
 
-        {active !== 'home' && active !== 'skills' && (
+        {active === 'experience' && (
+          <div className="section-body section-body--wide">
+            <Experience />
+          </div>
+        )}
+
+        {active === 'education' && (
+          <div className="section-body section-body--wide">
+            <Education />
+          </div>
+        )}
+
+        {active !== 'home' && active !== 'skills' && active !== 'experience' && active !== 'education' && (
           <div className="section-body">
             <ComingSoon label={NAV.find(n => n.id === active).label} />
           </div>
