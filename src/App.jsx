@@ -371,65 +371,74 @@ const CERTS = [
 
 const COURSERA_CERTS = [
   { title: 'Sequences, Time Series & Prediction',            year: '2023' },
-  { title: 'Introduction to Data Science in Python',         year: '2022' },
   { title: 'GCP Big Data & ML Fundamentals',                 year: '2023' },
+  { title: 'Introduction to Data Science in Python',         year: '2022' },
   { title: 'Introduction to Git & GitHub',                   year: '2022' },
-  { title: 'Using Python to Interact with the OS',           year: '2021' },
   { title: 'Neural Networks & Deep Learning',                year: '2021' },
-  { title: 'Programming for Everybody (Python)',             year: '2021' },
   { title: 'Machine Learning',                               year: '2021' },
+  { title: 'Using Python to Interact with the OS',           year: '2021' },
+  { title: 'Programming for Everybody (Python)',             year: '2021' },
 ]
 
+function CertRow({ id, title, issuer, issued, expires, accent, tag, icon, level, withLine }) {
+  return (
+    <div className="cert-row">
+      <div className="cert-spine">
+        <div className="cert-spine-icon" style={{ background: accent, borderColor: accent }}>
+          <span className="cert-spine-emoji">{icon}</span>
+        </div>
+        {withLine && <div className="cert-spine-line" style={{ background: `linear-gradient(to bottom, ${accent}, var(--grey-light))` }} />}
+      </div>
+      <div className="cert-card" style={{ '--cert-accent': accent }}>
+        <div className="cert-card-top">
+          <div className="cert-left">
+            <span className="cert-level">{level}</span>
+            <span className="cert-title">{title}</span>
+            <span className="cert-issuer">{issuer}</span>
+          </div>
+          <div className="cert-right">
+            <span className="cert-tag">{tag}</span>
+            <div className="cert-dates">
+              <div className="cert-date-item">
+                <span className="cert-date-label">ISSUED</span>
+                <span className="cert-date-val">{issued}</span>
+              </div>
+              {expires ? (
+                <div className="cert-date-item">
+                  <span className="cert-date-label">EXPIRES</span>
+                  <span className="cert-date-val">{expires}</span>
+                </div>
+              ) : (
+                <div className="cert-date-item">
+                  <span className="cert-date-label">EXPIRES</span>
+                  <span className="cert-date-val cert-date-never">NEVER ✦</span>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 function Certifications() {
+  const topCerts  = CERTS.slice(0, 3)   // Databricks ML, Databricks GenAI, ML Spec
+  const lastCert  = CERTS[3]             // DSA — Coding Ninjas (last, no line)
   return (
     <div className="cert-wrapper">
       <div className="cert-timeline">
-        {CERTS.map(({ id, title, issuer, issued, expires, accent, tag, icon, level }, idx) => (
-          <div key={id} className="cert-row">
-            <div className="cert-spine">
-              <div className="cert-spine-icon" style={{ background: accent, borderColor: accent }}>
-                <span className="cert-spine-emoji">{icon}</span>
-              </div>
-              <div className="cert-spine-line" style={{ background: `linear-gradient(to bottom, ${accent}, var(--grey-light))` }} />
-            </div>
-            <div className="cert-card" style={{ '--cert-accent': accent }}>
-              <div className="cert-card-top">
-                <div className="cert-left">
-                  <span className="cert-level">{level}</span>
-                  <span className="cert-title">{title}</span>
-                  <span className="cert-issuer">{issuer}</span>
-                </div>
-                <div className="cert-right">
-                  <span className="cert-tag">{tag}</span>
-                  <div className="cert-dates">
-                    <div className="cert-date-item">
-                      <span className="cert-date-label">ISSUED</span>
-                      <span className="cert-date-val">{issued}</span>
-                    </div>
-                    {expires ? (
-                      <div className="cert-date-item">
-                        <span className="cert-date-label">EXPIRES</span>
-                        <span className="cert-date-val">{expires}</span>
-                      </div>
-                    ) : (
-                      <div className="cert-date-item">
-                        <span className="cert-date-label">EXPIRES</span>
-                        <span className="cert-date-val cert-date-never">NEVER ✦</span>
-                      </div>
-                    )}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+        {topCerts.map((c) => (
+          <CertRow key={c.id} {...c} withLine />
         ))}
 
-        {/* Coursera as a timeline entry */}
+        {/* Coursera Learning Log — between ML Spec and DSA */}
         <div className="cert-row">
           <div className="cert-spine">
             <div className="cert-spine-icon" style={{ background: '#0056d2', borderColor: '#0056d2' }}>
               <span className="cert-spine-emoji">📚</span>
             </div>
+            <div className="cert-spine-line" style={{ background: 'linear-gradient(to bottom, #0056d2, var(--grey-light))' }} />
           </div>
           <div className="cert-card" style={{ '--cert-accent': '#0056d2' }}>
             <div className="cert-card-top">
@@ -452,6 +461,9 @@ function Certifications() {
             </div>
           </div>
         </div>
+
+        {/* DSA — Coding Ninjas (last entry, no spine line) */}
+        <CertRow key={lastCert.id} {...lastCert} withLine={false} />
       </div>
     </div>
   )
