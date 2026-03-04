@@ -1501,6 +1501,37 @@ html, body, #root {
   color: var(--cert-accent);
 }
 
+/* ── Coursera courses grid inside cert-card ── */
+.cert-courses-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px 16px;
+  margin-top: 10px;
+  padding-top: 8px;
+  border-top: 2px solid rgba(0,86,210,0.15);
+}
+
+.cert-course-item {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.cert-course-year {
+  font-size: 0.6rem;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  color: var(--cert-accent);
+  flex-shrink: 0;
+}
+
+.cert-course-name {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1.3;
+}
+
 /* ========================================
    RESPONSIVE
 ======================================== */

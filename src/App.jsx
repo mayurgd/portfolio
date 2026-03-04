@@ -369,6 +369,17 @@ const CERTS = [
   },
 ]
 
+const COURSERA_CERTS = [
+  { title: 'Sequences, Time Series & Prediction',            year: '2023' },
+  { title: 'Introduction to Data Science in Python',         year: '2022' },
+  { title: 'GCP Big Data & ML Fundamentals',                 year: '2023' },
+  { title: 'Introduction to Git & GitHub',                   year: '2022' },
+  { title: 'Using Python to Interact with the OS',           year: '2021' },
+  { title: 'Neural Networks & Deep Learning',                year: '2021' },
+  { title: 'Programming for Everybody (Python)',             year: '2021' },
+  { title: 'Machine Learning',                               year: '2021' },
+]
+
 function Certifications() {
   return (
     <div className="cert-wrapper">
@@ -379,7 +390,7 @@ function Certifications() {
               <div className="cert-spine-icon" style={{ background: accent, borderColor: accent }}>
                 <span className="cert-spine-emoji">{icon}</span>
               </div>
-              {idx < CERTS.length - 1 && <div className="cert-spine-line" style={{ background: `linear-gradient(to bottom, ${accent}, var(--grey-light))` }} />}
+              <div className="cert-spine-line" style={{ background: `linear-gradient(to bottom, ${accent}, var(--grey-light))` }} />
             </div>
             <div className="cert-card" style={{ '--cert-accent': accent }}>
               <div className="cert-card-top">
@@ -412,6 +423,35 @@ function Certifications() {
             </div>
           </div>
         ))}
+
+        {/* Coursera as a timeline entry */}
+        <div className="cert-row">
+          <div className="cert-spine">
+            <div className="cert-spine-icon" style={{ background: '#0056d2', borderColor: '#0056d2' }}>
+              <span className="cert-spine-emoji">📚</span>
+            </div>
+          </div>
+          <div className="cert-card" style={{ '--cert-accent': '#0056d2' }}>
+            <div className="cert-card-top">
+              <div className="cert-left">
+                <span className="cert-level">2021 — 2023</span>
+                <span className="cert-title">Coursera Learning Log</span>
+                <span className="cert-issuer">Coursera — Online Certifications</span>
+              </div>
+              <div className="cert-right">
+                <span className="cert-tag">TRAINING ARC</span>
+              </div>
+            </div>
+            <div className="cert-courses-grid">
+              {COURSERA_CERTS.map(({ title, year }) => (
+                <div key={title} className="cert-course-item">
+                  <span className="cert-course-year">{year}</span>
+                  <span className="cert-course-name">{title}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   )
