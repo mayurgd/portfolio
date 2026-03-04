@@ -40,6 +40,107 @@ html, body, #root {
 }
 
 /* ========================================
+   LEFT NAV STRIP
+======================================== */
+.nav-strip {
+  position: fixed;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  background: var(--ink);
+  border: var(--border);
+  border-left: none;
+  box-shadow: 3px 3px 0 var(--grey-mid);
+}
+
+.nav-strip-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid rgba(255,255,255,0.12);
+  color: var(--grey-mid);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+  font-family: inherit;
+  white-space: nowrap;
+  text-align: left;
+}
+
+.nav-strip-btn:last-child {
+  border-bottom: none;
+}
+
+.nav-strip-btn:hover {
+  background: rgba(255,255,255,0.08);
+  color: var(--white);
+}
+
+.nav-strip-btn--active {
+  background: var(--white);
+  color: var(--ink);
+}
+
+.nav-strip-btn--active:hover {
+  background: var(--white);
+  color: var(--ink);
+}
+
+.nav-strip-icon {
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+.nav-strip-label {
+  font-size: 0.65rem;
+}
+
+/* ========================================
+   HERO INLINE SOCIAL LINKS
+======================================== */
+.hero-social {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  align-self: center;
+  background: var(--ink);
+  border: var(--border);
+  box-shadow: 3px 3px 0 var(--grey-mid);
+}
+
+.hero-social-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  color: var(--white);
+  font-size: 1.3rem;
+  text-decoration: none;
+  border-bottom: 2px solid rgba(255,255,255,0.12);
+  transition: background 0.15s, color 0.15s;
+}
+
+.hero-social-link:last-child {
+  border-bottom: none;
+}
+
+.hero-social-link:hover {
+  background: var(--white);
+  color: var(--ink);
+}
+
+/* ========================================
    HALFTONE DOT OVERLAY (Spider-Verse feel)
 ======================================== */
 .halftone-overlay {
@@ -81,6 +182,60 @@ html, body, #root {
   transform: none;
   display: flex;
   flex-direction: column;
+}
+
+/* ========================================
+   SECTION BODY (non-home sections)
+======================================== */
+.section-body {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.coming-soon {
+  border: var(--border-thick);
+  background: var(--ink);
+  color: var(--white);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  max-width: 600px;
+  min-height: 260px;
+  box-shadow: 5px 5px 0 var(--grey-mid);
+  position: relative;
+  overflow: hidden;
+}
+
+.coming-soon-bang {
+  position: absolute;
+  font-size: 10rem;
+  font-weight: 700;
+  font-style: italic;
+  color: rgba(255,255,255,0.05);
+  user-select: none;
+  pointer-events: none;
+  line-height: 1;
+}
+
+.coming-soon-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  position: relative;
+}
+
+.coming-soon-sub {
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  opacity: 0.5;
+  text-transform: uppercase;
+  position: relative;
 }
 
 /* ========================================
@@ -139,7 +294,7 @@ html, body, #root {
 ======================================== */
 .hero-layout {
   display: grid;
-  grid-template-columns: 320px 1fr;
+  grid-template-columns: 320px 1fr auto;
   gap: 56px;
   align-items: center;
   max-width: 1100px;
@@ -401,6 +556,10 @@ html, body, #root {
   .hero-panel {
     padding: 32px 24px 36px;
     min-height: 100vh;
+  }
+
+  .nav-strip {
+    display: none;
   }
 
   .hero-layout {
