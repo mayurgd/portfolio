@@ -88,7 +88,6 @@ const TECH_STACK = [
       { name: 'GitHub Actions', Icon: SiGithubactions },
       { name: 'Helm',           Icon: SiHelm },
       { name: 'Argo',           Icon: SiArgo },
-      { name: 'OpenShift',      Icon: SiRedhatopenshift },
       { name: 'Backstage', iconSrc: backstageIcon },
     ],
   },
@@ -103,6 +102,16 @@ const NAV = [
   { id: 'certifications', Icon: FaCertificate,   label: 'Certifications'},
   { id: 'awards',         Icon: FaTrophy,        label: 'Awards'       },
 ]
+
+const CAPTIONS = {
+  home:           'MEANWHILE... IN THE DATA DIMENSION',
+  skills:         'WEAPONS EQUIPPED ⚡ ARSENAL UNLOCKED',
+  experience:     'YEARS IN THE FIELD ◆ BATTLE HARDENED',
+  projects:       'MISSIONS DEPLOYED ★ CODE IN THE WILD',
+  education:      'ORIGIN STORY ✦ WHERE IT ALL BEGAN',
+  certifications: 'BADGES OF HONOUR ◈ SKILLS CERTIFIED',
+  awards:         'HALL OF FAME 🕷 VICTORIES LOGGED',
+}
 
 /* ── Tech Stack section ── */
 function TechStack() {
@@ -141,57 +150,96 @@ function TechStack() {
 
 /* ── Experience section ── */
 function Experience() {
-  const roles = [
-    {
-      title: 'Consultant',
-      period: '01 Jun 2023 — 12 Apr 2026',
-      from: '2023-06-01',
-      to: '2026-04-12',
-    },
-    {
-      title: 'Analyst',
-      period: '17 Aug 2020 — 31 May 2023',
-      from: '2020-08-17',
-      to: '2023-05-31',
-    },
-  ]
-
   const totalStart = new Date('2020-08-17')
   const totalEnd   = new Date('2026-04-12')
   const totalMs    = totalEnd - totalStart
   const totalYears = Math.floor(totalMs / (1000 * 60 * 60 * 24 * 365))
   const totalMonths = Math.floor((totalMs / (1000 * 60 * 60 * 24 * 30.44)) % 12)
 
+  const roles = [
+    {
+      title: 'Consultant — Data Scientist',
+      subtitle: 'Senior Operative',
+      period: '01 Jun 2023 — 12 Apr 2026',
+      from: new Date('2023-06-01'),
+      to:   new Date('2026-04-12'),
+      accent: '#3b82f6',
+      issue: '02',
+      action: 'LEVEL UP!',
+    },
+    {
+      title: 'Analyst — Data Scientist',
+      subtitle: 'Origin Arc',
+      period: '17 Aug 2020 — 31 May 2023',
+      from: new Date('2020-08-17'),
+      to:   new Date('2023-05-31'),
+      accent: '#22c55e',
+      issue: '01',
+      action: 'BOOM!',
+    },
+  ]
+
   return (
     <div className="exp-wrapper">
-      <div className="exp-company-card">
-        <img src={deloitteIcon} alt="Deloitte" className="exp-company-logo" />
-        <div className="exp-company-info">
-          <div className="exp-company-name">Deloitte USI</div>
-          <div className="exp-company-tenure">
-            {totalYears} yr {totalMonths} mo &nbsp;·&nbsp; Aug 2020 — Apr 2026
-          </div>
+
+      {/* ── Splash header ── */}
+      <div className="exp-splash">
+        <div className="exp-splash-bg" />
+        <div className="exp-splash-left">
+          <div className="exp-splash-eyebrow">FIELD REPORT &nbsp;///&nbsp; ACTIVE SINCE 2020</div>
+          <div className="exp-splash-company">DELOITTE <span className="exp-splash-usi">USI</span></div>
+          <div className="exp-splash-tagline">&ldquo; Turning data into decisions, one sprint at a time. &rdquo;</div>
         </div>
-        <div className="exp-total-badge">
-          <span className="exp-total-num">{totalYears}<span className="exp-total-unit">yr</span>{totalMonths}<span className="exp-total-unit">mo</span></span>
-          <span className="exp-total-label">TOTAL EXP</span>
+        <div className="exp-splash-center">
+          <img src={deloitteIcon} alt="Deloitte" className="exp-splash-logo" />
+        </div>
+        <div className="exp-splash-right">
+          <div className="exp-splash-stat">
+            <span className="exp-splash-stat-val">{totalYears}</span>
+            <span className="exp-splash-stat-unit">YRS</span>
+          </div>
+          <div className="exp-splash-divider" />
+          <div className="exp-splash-stat">
+            <span className="exp-splash-stat-val">{totalMonths}</span>
+            <span className="exp-splash-stat-unit">MOS</span>
+          </div>
+          <div className="exp-splash-stat-label">TOTAL<br/>EXPERIENCE</div>
         </div>
       </div>
 
-      <div className="exp-timeline">
-        {roles.map(({ title, period }, i) => (
-          <div key={title} className="exp-role-row">
-            <div className="exp-role-connector">
-              <div className="exp-role-dot" />
-              {i < roles.length - 1 && <div className="exp-role-line" />}
+      {/* ── Role panels ── */}
+      <div className="exp-panels">
+        {roles.map(({ title, subtitle, period, from, to, accent, issue, action }, i) => {
+          const durMs = to - from
+          const durYrs = Math.floor(durMs / (1000 * 60 * 60 * 24 * 365))
+          const durMos = Math.floor((durMs / (1000 * 60 * 60 * 24 * 30.44)) % 12)
+          const pct = Math.round((durMs / totalMs) * 100)
+          return (
+            <div key={title} className="exp-timeline-row">
+              <div className="exp-timeline-spine">
+                <div className="exp-timeline-dot" style={{ background: accent, borderColor: accent }} />
+                {i < roles.length - 1 && <div className="exp-timeline-line" style={{ background: `linear-gradient(to bottom, ${accent}, var(--grey-light))` }} />}
+              </div>
+              <div className="exp-panel" style={{ '--role-accent': accent }}>
+                <div className="exp-panel-header">
+                  <span className="exp-panel-issue">ISSUE #{issue}</span>
+                  <span className="exp-panel-action">{action}</span>
+                </div>
+                <div className="exp-panel-title">{title}</div>
+                <div className="exp-panel-subtitle">{subtitle}</div>
+                <div className="exp-panel-period">{period}</div>
+                <div className="exp-panel-bar-wrap">
+                  <div className="exp-panel-bar" style={{ width: `${pct}%` }} />
+                </div>
+                <span className="exp-panel-bar-label">{pct}% OF CAREER</span>
+                <div className="exp-panel-dur">
+                  {durYrs > 0 && <><span className="exp-panel-dur-val">{durYrs}</span><span className="exp-panel-dur-unit">yr</span></>}
+                  {durMos > 0 && <><span className="exp-panel-dur-val">{durMos}</span><span className="exp-panel-dur-unit">mo</span></>}
+                </div>
+              </div>
             </div>
-            <div className="exp-role-card">
-              <div className="exp-role-num">#{String(i + 1).padStart(2, '0')}</div>
-              <div className="exp-role-title">{title}</div>
-              <div className="exp-role-period">{period}</div>
-            </div>
-          </div>
-        ))}
+          )
+        })}
       </div>
     </div>
   )
@@ -314,7 +362,7 @@ function App() {
 
         {/* Action caption */}
         <div className="caption-box caption-box--top">
-          MEANWHILE... IN THE DATA DIMENSION
+          {CAPTIONS[active]}
         </div>
 
         {/* ── Section content ── */}

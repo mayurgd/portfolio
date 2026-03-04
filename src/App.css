@@ -49,15 +49,18 @@ html, body, #root {
   display: flex;
   flex-wrap: wrap;
   gap: 4px;
-  margin-bottom: 10px;
+  margin-bottom: 6px;
   margin-top: 0;
+  width: 100%;
 }
 
 .chapter-nav-btn {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 7px;
   padding: 8px 16px;
+  flex: 1;
   background: var(--ink);
   color: var(--grey-mid);
   border: var(--border);
@@ -115,15 +118,16 @@ html, body, #root {
 .section-body--wide {
   align-items: flex-start;
   justify-content: flex-start;
-  padding: 8px 0;
-  overflow-y: auto;
+  padding: 6px 0;
+  overflow: hidden;
 }
 
 .techstack-wrapper {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 6px;
   width: 100%;
+  height: 100%;
 }
 
 .techstack-section-title {
@@ -154,11 +158,13 @@ html, body, #root {
 .techstack {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 5px;
+  gap: 3px;
   width: 100%;
   background: var(--ink);
   border: var(--border-thick);
   overflow: hidden;
+  flex: 1;
+  min-height: 0;
 }
 
 .techstack-col {
@@ -170,11 +176,11 @@ html, body, #root {
 .techstack-col-header {
   background: var(--ink);
   color: var(--white);
-  font-size: 0.85rem;
+  font-size: 0.78rem;
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  padding: 8px 12px;
+  padding: 5px 10px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -198,7 +204,7 @@ html, body, #root {
 .techstack-list {
   list-style: none;
   margin: 0;
-  padding: 8px 12px;
+  padding: 4px 10px;
   display: flex;
   flex-direction: column;
   gap: 0;
@@ -206,11 +212,11 @@ html, body, #root {
 }
 
 .techstack-item {
-  font-size: 0.95rem;
+  font-size: 0.92rem;
   font-weight: 600;
   letter-spacing: 0.04em;
   color: var(--ink);
-  padding: 6px 6px;
+  padding: 4px 6px;
   border-bottom: 1px solid var(--grey-light);
   display: flex;
   align-items: center;
@@ -240,8 +246,8 @@ html, body, #root {
 .techstack-chip-grid {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
-  padding: 12px;
+  gap: 4px;
+  padding: 8px;
   flex: 1;
   align-content: flex-start;
 }
@@ -249,10 +255,10 @@ html, body, #root {
 .techstack-chip {
   display: inline-flex;
   align-items: center;
-  padding: 5px 11px;
+  padding: 3px 9px;
   background: var(--white);
   color: var(--ink);
-  font-size: 0.8rem;
+  font-size: 0.82rem;
   font-weight: 700;
   letter-spacing: 0.07em;
   text-transform: uppercase;
@@ -338,14 +344,15 @@ html, body, #root {
   position: relative;
   z-index: 2;
   width: 100%;
-  min-height: 100vh;
+  height: 100vh;
   background: var(--white);
   border: none;
   box-shadow: none;
-  padding: 20px 80px 64px;
+  padding: 12px 80px 12px;
   transform: none;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 }
 
 /* ========================================
@@ -353,9 +360,11 @@ html, body, #root {
 ======================================== */
 .section-body {
   flex: 1;
+  min-height: 0;
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
 }
 
 .coming-soon {
@@ -441,12 +450,12 @@ html, body, #root {
 }
 
 .caption-box--top {
-  margin-bottom: 14px;
+  margin-bottom: 8px;
   display: block;
 }
 
 .caption-box--bottom {
-  margin-top: 36px;
+  margin-top: 8px;
   display: block;
   font-style: italic;
   letter-spacing: 0.1em;
@@ -719,162 +728,317 @@ html, body, #root {
 .exp-wrapper {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 8px;
   width: 100%;
-  max-width: 720px;
 }
 
-.exp-company-card {
+/* ── Splash header ── */
+.exp-splash {
+  position: relative;
   display: flex;
   align-items: center;
-  gap: 20px;
-  background: var(--white);
-  color: var(--ink);
+  gap: 0;
+  background: var(--ink);
+  color: var(--white);
   border: var(--border-thick);
-  padding: 18px 24px;
-  box-shadow: 5px 5px 0 var(--grey-mid);
+  overflow: hidden;
+  min-height: 80px;
 }
 
-.exp-company-logo {
-  width: 56px;
-  height: 56px;
-  object-fit: contain;
-  flex-shrink: 0;
+/* Speed-lines background */
+.exp-splash-bg {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    100deg,
+    transparent,
+    transparent 18px,
+    rgba(255,255,255,0.03) 18px,
+    rgba(255,255,255,0.03) 19px
+  );
+  pointer-events: none;
 }
 
-.exp-company-info {
+.exp-splash-left {
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 3px;
+  padding: 12px 18px;
+  position: relative;
+  border-right: var(--border);
 }
 
-.exp-company-name {
-  font-size: 1.35rem;
+.exp-splash-eyebrow {
+  font-size: 0.58rem;
   font-weight: 700;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
+  opacity: 0.45;
 }
 
-.exp-company-tenure {
-  font-size: 0.72rem;
-  letter-spacing: 0.1em;
+.exp-splash-company {
+  font-size: 1.7rem;
+  font-weight: 900;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  line-height: 1;
+  text-shadow: 3px 3px 0 rgba(255,255,255,0.1);
+}
+
+.exp-splash-usi {
+  font-style: italic;
+  opacity: 0.6;
+}
+
+.exp-splash-tagline {
+  font-size: 0.7rem;
+  font-style: italic;
+  letter-spacing: 0.06em;
   opacity: 0.55;
-  text-transform: uppercase;
 }
 
-.exp-total-badge {
+.exp-splash-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 20px;
+  border-right: var(--border);
+  position: relative;
+}
+
+.exp-splash-logo {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+  opacity: 0.9;
+}
+
+.exp-splash-right {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: var(--ink);
-  color: var(--white);
-  border: var(--border);
-  padding: 10px 16px;
-  min-width: 76px;
-  flex-shrink: 0;
+  gap: 1px;
+  padding: 12px 18px;
+  position: relative;
+  min-width: 90px;
 }
 
-.exp-total-num {
-  font-size: 1.5rem;
-  font-weight: 900;
-  letter-spacing: -0.02em;
+.exp-splash-stat {
+  display: flex;
+  align-items: baseline;
+  gap: 3px;
   line-height: 1;
 }
 
-.exp-total-unit {
-  font-size: 0.65rem;
+.exp-splash-stat-val {
+  font-size: 1.6rem;
+  font-weight: 900;
+  letter-spacing: -0.03em;
+}
+
+.exp-splash-stat-unit {
+  font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.1em;
-  margin: 0 2px;
-}
-
-.exp-total-label {
-  font-size: 0.55rem;
-  font-weight: 700;
-  letter-spacing: 0.18em;
   text-transform: uppercase;
-  opacity: 0.55;
-  margin-top: 4px;
+  opacity: 0.6;
 }
 
-.exp-timeline {
+.exp-splash-divider {
+  width: 40px;
+  height: 2px;
+  background: rgba(255,255,255,0.2);
+  margin: 3px 0;
+}
+
+.exp-splash-stat-label {
+  font-size: 0.52rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  text-align: center;
+  opacity: 0.4;
+  margin-top: 4px;
+  line-height: 1.5;
+}
+
+/* ── Role panels ── */
+.exp-panels {
   display: flex;
   flex-direction: column;
   gap: 0;
-  padding-left: 8px;
+  padding-left: 4px;
 }
 
-.exp-role-row {
+.exp-timeline-row {
   display: flex;
   align-items: flex-start;
   gap: 16px;
 }
 
-.exp-role-connector {
+.exp-timeline-spine {
   display: flex;
   flex-direction: column;
   align-items: center;
   flex-shrink: 0;
-  padding-top: 4px;
+  padding-top: 18px;
 }
 
-.exp-role-dot {
-  width: 14px;
-  height: 14px;
-  background: var(--ink);
-  border: 3px solid var(--ink);
+.exp-timeline-dot {
+  width: 16px;
+  height: 16px;
+  border: 3px solid;
   flex-shrink: 0;
+  transform: rotate(45deg);
 }
 
-.exp-role-line {
+.exp-timeline-line {
   width: 3px;
   flex: 1;
-  min-height: 28px;
-  background: var(--grey-mid);
-  margin: 4px 0;
+  min-height: 24px;
+  margin: 6px 0;
 }
 
-.exp-role-card {
+.exp-panel {
   flex: 1;
+  position: relative;
   background: var(--white);
-  border: var(--border);
-  border-left: 5px solid var(--ink);
-  padding: 14px 18px;
-  margin-bottom: 12px;
-  box-shadow: 3px 3px 0 var(--grey-light);
+  border: var(--border-thick);
+  border-top: 5px solid var(--role-accent);
+  overflow: hidden;
   display: flex;
   flex-direction: column;
   gap: 4px;
-  transition: box-shadow 0.15s, transform 0.15s;
+  padding: 10px 16px 12px;
+  box-shadow: 4px 4px 0 var(--ink);
+  margin-bottom: 10px;
+  transition: transform 0.15s, box-shadow 0.15s;
 }
 
-.exp-role-card:hover {
-  box-shadow: 5px 5px 0 var(--grey-mid);
-  transform: translate(-1px, -1px);
+.exp-panel::before {
+  content: '';
+  position: absolute;
+  bottom: -30px;
+  right: -30px;
+  width: 120px;
+  height: 120px;
+  background: var(--role-accent);
+  opacity: 0.06;
+  transform: rotate(45deg);
+  pointer-events: none;
 }
 
-.exp-role-num {
-  font-size: 0.65rem;
-  opacity: 0.4;
-  letter-spacing: 0.08em;
+.exp-panel:hover {
+  transform: translate(-3px, -3px);
+  box-shadow: 8px 8px 0 var(--ink);
+}
+
+.exp-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.exp-panel-issue {
+  font-size: 0.6rem;
   font-weight: 900;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  opacity: 0.35;
 }
 
-.exp-role-title {
-  font-size: 1.05rem;
-  font-weight: 700;
+.exp-panel-action {
+  font-size: 0.75rem;
+  font-weight: 900;
+  font-style: italic;
   letter-spacing: 0.1em;
   text-transform: uppercase;
+  color: var(--role-accent);
+  background: var(--ink);
+  padding: 2px 10px;
+  clip-path: polygon(6px 0%, 100% 0%, calc(100% - 6px) 100%, 0% 100%);
+  line-height: 1.6;
+}
+
+.exp-panel-title {
+  font-size: 1.35rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  line-height: 1;
+  text-shadow: 2px 2px 0 var(--role-accent);
+}
+
+.exp-panel-subtitle {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--role-accent);
+  margin-top: -2px;
+}
+
+.exp-panel-period {
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--grey-dark);
+  border-left: 3px solid var(--role-accent);
+  padding-left: 8px;
+  margin-top: 4px;
+}
+
+.exp-panel-bar-wrap {
+  position: relative;
+  background: var(--grey-light);
+  height: 8px;
+  border: 2px solid var(--ink);
+  margin-top: 6px;
+  overflow: hidden;
+}
+
+.exp-panel-bar {
+  height: 100%;
+  background: var(--role-accent);
+  transition: width 0.6s ease;
+}
+
+.exp-panel-bar-label {
+  font-size: 0.52rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  opacity: 0.45;
+  margin-top: 3px;
+  display: block;
+}
+
+.exp-panel-dur {
+  display: flex;
+  align-items: baseline;
+  gap: 2px;
+  margin-top: 2px;
+}
+
+.exp-panel-dur-val {
+  font-size: 1.1rem;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  line-height: 1;
   color: var(--ink);
 }
 
-.exp-role-period {
-  font-size: 0.78rem;
-  letter-spacing: 0.06em;
-  color: var(--grey-dark);
-  opacity: 0.75;
+.exp-panel-dur-unit {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  opacity: 0.5;
+  margin-right: 6px;
 }
 
 /* ========================================
@@ -883,7 +1047,7 @@ html, body, #root {
 .edu-wrapper {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 8px;
   width: 100%;
   max-width: 680px;
 }
@@ -918,9 +1082,9 @@ html, body, #root {
 
 .edu-spine-line {
   width: 3px;
-  min-height: 36px;
+  min-height: 16px;
   background: linear-gradient(to bottom, var(--edu-accent), transparent);
-  margin: 6px 0;
+  margin: 3px 0;
 }
 
 .edu-card {
@@ -928,12 +1092,12 @@ html, body, #root {
   background: var(--white);
   border: var(--border);
   border-left: 6px solid var(--edu-accent);
-  padding: 16px 20px;
-  margin-bottom: 14px;
+  padding: 10px 16px;
+  margin-bottom: 6px;
   box-shadow: 4px 4px 0 var(--grey-light);
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 4px;
   transition: box-shadow 0.15s, transform 0.15s;
   position: relative;
   overflow: hidden;
@@ -983,7 +1147,7 @@ html, body, #root {
 }
 
 .edu-institution {
-  font-size: 1.2rem;
+  font-size: 1.05rem;
   font-weight: 900;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -1004,9 +1168,9 @@ html, body, #root {
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
-  gap: 10px;
-  margin-top: 4px;
-  padding-top: 10px;
+  gap: 6px;
+  margin-top: 2px;
+  padding-top: 6px;
   border-top: 2px dashed var(--grey-light);
 }
 
@@ -1021,7 +1185,7 @@ html, body, #root {
 .edu-stats {
   display: flex;
   gap: 12px;
-  padding: 4px 4px 6px 2px;
+  padding: 2px 4px 4px 2px;
 }
 
 .edu-stat {
