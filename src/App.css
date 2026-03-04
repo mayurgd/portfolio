@@ -1,0 +1,430 @@
+/* ========================================
+   GLOBAL RESET & FONT
+======================================== */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --ink: #0a0a0a;
+  --white: #f5f5f0;
+  --grey-light: #d4d4cc;
+  --grey-mid: #8a8a82;
+  --grey-dark: #3a3a36;
+  --border: 3px solid var(--ink);
+  --border-thick: 5px solid var(--ink);
+  font-family: 'Courier Prime', 'Courier New', monospace;
+}
+
+html, body, #root {
+  height: 100%;
+  width: 100%;
+  background-color: var(--ink);
+  overflow-x: hidden;
+}
+
+/* ========================================
+   PAGE WRAPPER
+======================================== */
+.page {
+  position: relative;
+  min-height: 100vh;
+  background-color: var(--ink);
+  display: flex;
+  align-items: stretch;
+  justify-content: stretch;
+  padding: 0;
+  overflow: hidden;
+}
+
+/* ========================================
+   HALFTONE DOT OVERLAY (Spider-Verse feel)
+======================================== */
+.halftone-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image:
+    radial-gradient(circle, rgba(255,255,255,0.07) 1px, transparent 1px);
+  background-size: 16px 16px;
+}
+
+/* ========================================
+   PANEL GRID LINES
+======================================== */
+.panel-grid {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+  background-size: 80px 80px;
+}
+
+/* ========================================
+   HERO PANEL (main card)
+======================================== */
+.hero-panel {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  min-height: 100vh;
+  background: var(--white);
+  border: none;
+  box-shadow: none;
+  padding: 48px 80px 64px;
+  transform: none;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ========================================
+   CORNER TAGS
+======================================== */
+.corner-tag {
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  background: var(--ink);
+  color: var(--white);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  padding: 3px 10px;
+  text-transform: uppercase;
+}
+
+.corner-tag--right {
+  left: auto;
+  right: -2px;
+}
+
+/* ========================================
+   CAPTION BOXES (Spider-Verse narration)
+======================================== */
+.caption-box {
+  background: var(--ink);
+  color: var(--white);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  text-align: center;
+  padding: 6px 16px;
+  border: var(--border);
+  display: inline-block;
+  transform: skewX(-4deg);
+}
+
+.caption-box--top {
+  margin-bottom: 32px;
+  display: block;
+}
+
+.caption-box--bottom {
+  margin-top: 36px;
+  display: block;
+  font-style: italic;
+  letter-spacing: 0.1em;
+  transform: skewX(-2deg);
+}
+
+/* ========================================
+   HERO LAYOUT (photo + info side by side)
+======================================== */
+.hero-layout {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 56px;
+  align-items: center;
+  max-width: 1100px;
+  width: 100%;
+  margin: auto;
+}
+
+/* ========================================
+   PHOTO PANEL
+======================================== */
+.photo-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.photo-frame {
+  position: relative;
+  width: 220px;
+  height: 260px;
+  border: var(--border-thick);
+  box-shadow: 5px 5px 0 var(--ink);
+  overflow: hidden;
+  background: var(--grey-light);
+  /* Ben-Day dots effect on photo */
+  background-image:
+    radial-gradient(circle, rgba(10,10,10,0.12) 1.5px, transparent 1.5px);
+  background-size: 8px 8px;
+  transform: rotate(1.2deg);
+}
+
+.profile-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: grayscale(100%) contrast(1.2);
+  mix-blend-mode: multiply;
+}
+
+.photo-label {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: var(--ink);
+  color: var(--white);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-align: center;
+  padding: 5px 8px;
+  text-transform: uppercase;
+}
+
+.badge {
+  background: var(--ink);
+  color: var(--white);
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-align: center;
+  padding: 10px 18px;
+  border: var(--border);
+  line-height: 1.7;
+  transform: rotate(-1deg);
+  box-shadow: 3px 3px 0 var(--grey-mid);
+}
+
+/* ========================================
+   INFO PANEL
+======================================== */
+.info-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Name block */
+.name-block {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.name-tag {
+  font-size: 0.7rem;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--grey-dark);
+  font-style: italic;
+  border-bottom: 2px solid var(--ink);
+  padding-bottom: 2px;
+  display: block;
+  max-width: 600px;
+}
+
+.hero-name {
+  font-size: clamp(3rem, 6vw, 5.5rem);
+  font-weight: 700;
+  line-height: 0.9;
+  color: var(--ink);
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  /* Ink outline gives comic depth */
+  text-shadow:
+    3px 3px 0 var(--grey-mid),
+    -1px -1px 0 var(--grey-light);
+}
+
+.name-accent {
+  color: var(--grey-dark);
+  font-style: italic;
+}
+
+/* ========================================
+   SPEECH BUBBLE
+======================================== */
+.speech-bubble {
+  position: relative;
+  background: var(--white);
+  border: var(--border-thick);
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  box-shadow: 4px 4px 0 var(--ink);
+  max-width: 600px;
+}
+
+/* Bubble tail */
+.speech-bubble::before {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 40px;
+  border-left: 12px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 14px solid var(--ink);
+}
+
+.speech-bubble::after {
+  content: '';
+  position: absolute;
+  top: calc(100% - 3px);
+  left: 43px;
+  border-left: 9px solid transparent;
+  border-right: 2px solid transparent;
+  border-top: 11px solid var(--white);
+}
+
+.bio-text {
+  font-size: 0.88rem;
+  line-height: 1.65;
+  color: var(--ink);
+}
+
+.bio-text--second {
+  padding-top: 8px;
+  border-top: 1px dashed var(--grey-mid);
+}
+
+/* ========================================
+   CONTACT PANEL
+======================================== */
+.contact-panel {
+  border: var(--border);
+  padding: 14px 18px;
+  background: var(--ink);
+  color: var(--white);
+  box-shadow: 3px 3px 0 var(--grey-mid);
+  max-width: 600px;
+}
+
+.contact-label {
+  font-size: 0.65rem;
+  letter-spacing: 0.25em;
+  text-align: center;
+  margin-bottom: 10px;
+  opacity: 0.7;
+}
+
+.contact-items {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.05rem;
+  letter-spacing: 0.05em;
+}
+
+.contact-icon {
+  font-size: 1.15rem;
+  flex-shrink: 0;
+  opacity: 0.85;
+  display: flex;
+  align-items: center;
+  line-height: 1;
+}
+
+.contact-link {
+  color: var(--white);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: rgba(255,255,255,0.4);
+  transition: text-decoration-color 0.2s;
+}
+
+.contact-link:hover {
+  text-decoration-color: var(--white);
+}
+
+/* ========================================
+   ACTION WORD (Spider-Verse POW! burst)
+======================================== */
+.action-word {
+  position: fixed;
+  bottom: 32px;
+  right: 40px;
+  z-index: 10;
+  color: var(--white);
+  font-size: 2rem;
+  font-weight: 700;
+  font-style: italic;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  transform: rotate(-12deg);
+  /* Star-burst polygon via clip-path */
+  background: var(--ink);
+  border: 3px solid rgba(255,255,255,0.3);
+  padding: 10px 18px;
+  clip-path: polygon(
+    10% 0%, 35% 5%, 50% 0%, 65% 5%, 90% 0%,
+    95% 20%, 100% 50%, 95% 80%, 90% 100%,
+    65% 95%, 50% 100%, 35% 95%, 10% 100%,
+    5% 80%, 0% 50%, 5% 20%
+  );
+  animation: pulse 3s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: rotate(-12deg) scale(1); }
+  50%       { transform: rotate(-12deg) scale(1.06); }
+}
+
+/* ========================================
+   RESPONSIVE
+======================================== */
+@media (max-width: 700px) {
+  .hero-panel {
+    padding: 32px 24px 36px;
+    min-height: 100vh;
+  }
+
+  .hero-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .photo-panel {
+    align-items: flex-start;
+    flex-direction: row;
+    gap: 20px;
+  }
+
+  .photo-frame {
+    width: 140px;
+    height: 168px;
+  }
+
+  .hero-name {
+    font-size: 3rem;
+  }
+
+  .action-word {
+    bottom: 16px;
+    right: 16px;
+    font-size: 1.4rem;
+  }
+}
