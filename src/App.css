@@ -116,51 +116,92 @@ html, body, #root {
   align-items: flex-start;
   justify-content: flex-start;
   padding: 8px 0;
+  overflow-y: auto;
+}
+
+.techstack-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+.techstack-section-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.techstack-title-text {
+  font-size: 0.95rem;
+  font-weight: 900;
+  letter-spacing: 0.24em;
+  color: var(--white);
+  white-space: nowrap;
+  text-transform: uppercase;
+  background: var(--ink);
+  padding: 4px 14px;
+  border: var(--border);
+  box-shadow: 2px 2px 0 var(--grey-mid);
+}
+
+.techstack-title-line {
+  flex: 1;
+  height: 3px;
+  background: var(--grey-mid);
 }
 
 .techstack {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 0;
+  gap: 5px;
   width: 100%;
-  max-width: 780px;
+  background: var(--ink);
   border: var(--border-thick);
-  box-shadow: 5px 5px 0 var(--ink);
   overflow: hidden;
 }
 
 .techstack-col {
-  border-right: var(--border);
   display: flex;
   flex-direction: column;
-}
-
-.techstack-col:last-child {
-  border-right: none;
+  background: var(--white);
 }
 
 .techstack-col-header {
   background: var(--ink);
   color: var(--white);
-  font-size: 0.76rem;
+  font-size: 0.72rem;
   font-weight: 700;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  padding: 7px 12px;
-  line-height: 1.4;
-  min-height: 40px;
+  padding: 8px 12px;
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  border-bottom: 4px solid var(--cat-accent);
+}
+
+.techstack-col-header-text {
+  flex: 1;
+  line-height: 1.35;
+}
+
+.techstack-col-num {
+  font-size: 0.6rem;
+  opacity: 0.4;
+  letter-spacing: 0.05em;
+  flex-shrink: 0;
+  font-weight: 900;
 }
 
 .techstack-list {
   list-style: none;
   margin: 0;
-  padding: 10px 14px;
+  padding: 8px 12px;
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  background: var(--white);
+  gap: 0;
   flex: 1;
 }
 
@@ -169,25 +210,62 @@ html, body, #root {
   font-weight: 600;
   letter-spacing: 0.04em;
   color: var(--ink);
-  padding: 4px 0;
+  padding: 6px 6px;
   border-bottom: 1px solid var(--grey-light);
-  text-transform: none;
   display: flex;
   align-items: center;
-  gap: 7px;
+  gap: 8px;
+  border-left: 3px solid transparent;
+  transition: background 0.12s, border-left-color 0.12s;
 }
 
-.techstack-item-icon {
-  font-size: 1rem;
-  flex-shrink: 0;
-  opacity: 0.75;
-  width: 1rem;
-  height: 1rem;
-  object-fit: contain;
+.techstack-item:hover {
+  background: var(--grey-light);
+  border-left-color: var(--cat-accent);
 }
 
 .techstack-item:last-child {
   border-bottom: none;
+}
+
+.techstack-item-icon {
+  font-size: 1.05rem;
+  flex-shrink: 0;
+  width: 1.1rem;
+  height: 1.1rem;
+  object-fit: contain;
+}
+
+/* Chip grid — AI/ML category */
+.techstack-chip-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 12px;
+  flex: 1;
+  align-content: flex-start;
+}
+
+.techstack-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 9px;
+  background: var(--ink);
+  color: var(--white);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  border: 2px solid var(--ink);
+  border-left: 4px solid var(--cat-accent);
+  cursor: default;
+  transition: background 0.12s, color 0.12s, border-color 0.12s;
+}
+
+.techstack-chip:hover {
+  background: var(--cat-accent);
+  color: var(--ink);
+  border-color: var(--cat-accent);
 }
 
 /* ========================================

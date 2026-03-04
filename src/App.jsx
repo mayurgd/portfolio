@@ -20,6 +20,7 @@ import { SiLeetcode, SiPython, SiApachespark, SiGooglecloud, SiDatabricks, SiKub
 const TECH_STACK = [
   {
     category: 'Programming Languages',
+    accent: '#f5c518',
     items: [
       { name: 'Python',  Icon: SiPython },
       { name: 'SQL', iconSrc: sqlIcon },
@@ -28,6 +29,7 @@ const TECH_STACK = [
   },
   {
     category: 'Cloud & Infrastructure',
+    accent: '#3b82f6',
     items: [
       { name: 'GCP',        Icon: SiGooglecloud },
       { name: 'Databricks', Icon: SiDatabricks },
@@ -40,6 +42,8 @@ const TECH_STACK = [
   },
   {
     category: 'AI / ML',
+    accent: '#ef4444',
+    chipStyle: true,
     items: [
       { name: 'Supervised & Unsupervised' },
       { name: 'Deep Learning' },
@@ -53,6 +57,7 @@ const TECH_STACK = [
   },
   {
     category: 'Frameworks & Libraries',
+    accent: '#22c55e',
     items: [
       { name: 'FastAPI',     Icon: SiFastapi },
       { name: 'Langfuse', iconSrc: langfuseIcon },
@@ -64,6 +69,7 @@ const TECH_STACK = [
   },
   {
     category: 'Agent Frameworks',
+    accent: '#a855f7',
     items: [
       { name: 'LangChain', iconSrc: langchainIcon },
       { name: 'LangGraph', iconSrc: langgraphIcon },
@@ -73,6 +79,7 @@ const TECH_STACK = [
   },
   {
     category: 'Data & DevOps Tools',
+    accent: '#f97316',
     items: [
       { name: 'Docker',         Icon: SiDocker },
       { name: 'Redis',          Icon: SiRedis },
@@ -98,21 +105,39 @@ const NAV = [
 /* ── Tech Stack section ── */
 function TechStack() {
   return (
-    <div className="techstack">
-      {TECH_STACK.map(({ category, items }) => (
-        <div key={category} className="techstack-col">
-          <div className="techstack-col-header">{category}</div>
-          <ul className="techstack-list">
-            {items.map(({ name, Icon, iconSrc }) => (
-              <li key={name} className="techstack-item">
-                {Icon && <Icon className="techstack-item-icon" />}
-                {iconSrc && <img src={iconSrc} alt={name} className="techstack-item-icon" />}
-                <span>{name}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      ))}
+    <div className="techstack-wrapper">
+      <div className="techstack-section-title">
+        <span className="techstack-title-line" />
+        <span className="techstack-title-text">TECH ARSENAL</span>
+        <span className="techstack-title-line" />
+      </div>
+      <div className="techstack">
+        {TECH_STACK.map(({ category, accent, chipStyle, items }, idx) => (
+          <div key={category} className="techstack-col" style={{ '--cat-accent': accent }}>
+            <div className="techstack-col-header">
+              <span className="techstack-col-header-text">{category}</span>
+              <span className="techstack-col-num">#{String(idx + 1).padStart(2, '0')}</span>
+            </div>
+            {chipStyle ? (
+              <div className="techstack-chip-grid">
+                {items.map(({ name }) => (
+                  <span key={name} className="techstack-chip">{name}</span>
+                ))}
+              </div>
+            ) : (
+              <ul className="techstack-list">
+                {items.map(({ name, Icon, iconSrc }) => (
+                  <li key={name} className="techstack-item">
+                    {Icon && <Icon className="techstack-item-icon" />}
+                    {iconSrc && <img src={iconSrc} alt={name} className="techstack-item-icon" />}
+                    <span>{name}</span>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+        ))}
+      </div>
     </div>
   )
 }
