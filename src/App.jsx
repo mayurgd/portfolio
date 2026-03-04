@@ -49,10 +49,11 @@ const TECH_STACK = [
       { name: 'Deep Learning' },
       { name: 'Time Series' },
       { name: 'NLP' },
-      { name: 'GenAI' },
-      { name: 'AgenticAI' },
+      { name: 'Gen AI' },
+      { name: 'Agentic AI' },
       { name: 'RAG' },
       { name: 'LLM' },
+      { name: 'MCP' },
     ],
   },
   {

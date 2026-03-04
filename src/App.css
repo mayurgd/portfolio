@@ -133,7 +133,7 @@ html, body, #root {
 }
 
 .techstack-title-text {
-  font-size: 0.95rem;
+  font-size: 1.1rem;
   font-weight: 900;
   letter-spacing: 0.24em;
   color: var(--white);
@@ -170,7 +170,7 @@ html, body, #root {
 .techstack-col-header {
   background: var(--ink);
   color: var(--white);
-  font-size: 0.72rem;
+  font-size: 0.85rem;
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -188,7 +188,7 @@ html, body, #root {
 }
 
 .techstack-col-num {
-  font-size: 0.6rem;
+  font-size: 0.72rem;
   opacity: 0.4;
   letter-spacing: 0.05em;
   flex-shrink: 0;
@@ -206,7 +206,7 @@ html, body, #root {
 }
 
 .techstack-item {
-  font-size: 0.82rem;
+  font-size: 0.95rem;
   font-weight: 600;
   letter-spacing: 0.04em;
   color: var(--ink);
@@ -229,10 +229,10 @@ html, body, #root {
 }
 
 .techstack-item-icon {
-  font-size: 1.05rem;
+  font-size: 1.2rem;
   flex-shrink: 0;
-  width: 1.1rem;
-  height: 1.1rem;
+  width: 1.25rem;
+  height: 1.25rem;
   object-fit: contain;
 }
 
@@ -249,10 +249,10 @@ html, body, #root {
 .techstack-chip {
   display: inline-flex;
   align-items: center;
-  padding: 4px 9px;
-  background: var(--ink);
-  color: var(--white);
-  font-size: 0.68rem;
+  padding: 5px 11px;
+  background: var(--white);
+  color: var(--ink);
+  font-size: 0.8rem;
   font-weight: 700;
   letter-spacing: 0.07em;
   text-transform: uppercase;
