@@ -1,5 +1,5 @@
 import './App.css'
-import profilePlaceholder from './assets/placeholder.svg'
+import profilePlaceholder from './assets/my_image_1.png'
 import { FaPhoneAlt, FaEnvelope, FaMapMarkerAlt } from 'react-icons/fa'
 
 function App() {
