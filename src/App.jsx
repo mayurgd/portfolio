@@ -321,6 +321,94 @@ function Education() {
   )
 }
 
+/* ── Certifications section ── */
+const CERTS = [
+  {
+    id: 'dbx-ml',
+    title: 'Databricks Certified Machine Learning Associate',
+    issuer: 'Databricks',
+    issued: 'Feb 2026',
+    expires: 'Feb 2028',
+    accent: '#ef4444',
+    tag: 'ACTIVE',
+    icon: '🏅',
+    level: 'ASSOCIATE',
+  },
+  {
+    id: 'dbx-genai',
+    title: 'Databricks Certified Generative AI Engineer Associate',
+    issuer: 'Databricks',
+    issued: 'Dec 2025',
+    expires: 'Dec 2027',
+    accent: '#f97316',
+    tag: 'ACTIVE',
+    icon: '⚡',
+    level: 'ASSOCIATE',
+  },
+  {
+    id: 'ml-spec',
+    title: 'Machine Learning Specialization',
+    issuer: 'DeepLearning.AI · Stanford University',
+    issued: 'Apr 2024',
+    expires: null,
+    accent: '#3b82f6',
+    tag: 'LIFETIME',
+    icon: '🎓',
+    level: 'SPECIALIZATION',
+  },
+  {
+    id: 'dsa',
+    title: 'Data Structures & Algorithms in Python',
+    issuer: 'Coding Ninjas',
+    issued: 'Mar 2020',
+    expires: null,
+    accent: '#22c55e',
+    tag: 'LIFETIME',
+    icon: '🧩',
+    level: 'COMPLETION',
+  },
+]
+
+function Certifications() {
+  return (
+    <div className="cert-wrapper">
+      <div className="cert-grid">
+        {CERTS.map(({ id, title, issuer, issued, expires, accent, tag, icon, level }, idx) => (
+          <div key={id} className="cert-card" style={{ '--cert-accent': accent }}>
+            <div className="cert-card-top">
+              <span className="cert-index">#{String(idx + 1).padStart(2, '0')}</span>
+              <span className="cert-tag">{tag}</span>
+            </div>
+            <div className="cert-icon-wrap">
+              <span className="cert-icon">{icon}</span>
+            </div>
+            <div className="cert-level">{level}</div>
+            <div className="cert-title">{title}</div>
+            <div className="cert-issuer">{issuer}</div>
+            <div className="cert-dates">
+              <div className="cert-date-item">
+                <span className="cert-date-label">ISSUED</span>
+                <span className="cert-date-val">{issued}</span>
+              </div>
+              {expires ? (
+                <div className="cert-date-item">
+                  <span className="cert-date-label">EXPIRES</span>
+                  <span className="cert-date-val">{expires}</span>
+                </div>
+              ) : (
+                <div className="cert-date-item">
+                  <span className="cert-date-label">EXPIRES</span>
+                  <span className="cert-date-val cert-date-never">NEVER ✦</span>
+                </div>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
 /* ── PLACEHOLDER panel for upcoming sections ── */
 function ComingSoon({ label }) {
   return (
@@ -462,7 +550,13 @@ function App() {
           </div>
         )}
 
-        {active !== 'home' && active !== 'skills' && active !== 'experience' && active !== 'education' && (
+        {active === 'certifications' && (
+          <div className="section-body section-body--wide">
+            <Certifications />
+          </div>
+        )}
+
+        {active !== 'home' && active !== 'skills' && active !== 'experience' && active !== 'education' && active !== 'certifications' && (
           <div className="section-body">
             <ComingSoon label={NAV.find(n => n.id === active).label} />
           </div>
