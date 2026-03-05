@@ -1048,7 +1048,7 @@ html, body, #root {
   letter-spacing: -0.01em;
   color: var(--ink);
   line-height: 1;
-  text-shadow: 2px 2px 0 var(--role-accent);
+  text-shadow: 2px 2px 0 color-mix(in srgb, var(--role-accent) 30%, transparent);
 }
 
 .exp-panel-subtitle {
