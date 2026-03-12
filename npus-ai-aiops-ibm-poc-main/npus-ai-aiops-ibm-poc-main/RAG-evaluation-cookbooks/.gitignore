@@ -1,0 +1,18 @@
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+.env
+*.log
+
+# Data
+/data/**/*.json
+/data/**/*.csv
+/data/**/*.parquet
+.deepeval/
+evaluation_results/
+
+# VS Code local overrides (shared configs are tracked)
+.vscode/*.local.json
+

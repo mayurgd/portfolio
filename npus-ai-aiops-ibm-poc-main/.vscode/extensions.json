@@ -1,0 +1,35 @@
+{
+  "recommendations": [
+    // Python Development
+    "ms-python.python",
+    "ms-python.vscode-pylance",
+    "ms-python.debugpy",
+    // Testing
+    "ms-python.pytest-adapter",
+    // Code Quality & Formatting
+    "charliermarsh.ruff",
+    "ms-python.black-formatter",
+    // Jupyter & Data Science
+    "ms-toolsai.jupyter",
+    "ms-toolsai.jupyter-keymap",
+    "ms-toolsai.jupyter-renderers",
+    // Environment & Config Files
+    "mikestead.dotenv",
+    "redhat.vscode-yaml",
+    "tamasfe.even-better-toml",
+    // JSON
+    "ZainChen.json",
+    // Markdown
+    "yzhang.markdown-all-in-one",
+    // Git & GitHub
+    "mhutchie.git-graph",
+    "github.vscode-github-actions",
+    // AI & Copilot
+    "GitHub.copilot-chat",
+    // Docker (useful for deployment)
+    "ms-azuretools.vscode-docker",
+    // General Productivity
+    "usernamehw.errorlens",
+    "mermaidchart.vscode-mermaid-chart",
+  ]
+}

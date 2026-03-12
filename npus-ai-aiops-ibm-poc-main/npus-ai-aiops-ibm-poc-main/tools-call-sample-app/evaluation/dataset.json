@@ -1,0 +1,817 @@
+[
+  {
+    "id": "PERFECT-001",
+    "input": "Show me all customer reviews for franchise 1",
+    "expected_output": {
+      "tool_calls": [
+        {
+          "name": "query_customer_reviews",
+          "args": {
+            "query": "SELECT franchiseID, review, review_date FROM samples.bakehouse.media_customer_reviews WHERE franchiseID = 1 ORDER BY review_date DESC LIMIT 20"
+          }
+        }
+      ]
+    },
+    "metadata": {
+      "category": "perfect_match",
+      "description": "Single tool, franchise filter - agent should call query_customer_reviews",
+      "expected_behavior": "Agent calls query_customer_reviews with franchiseID = 1 filter"
+    }
+  },
+  {
+    "id": "PERFECT-002",
+    "input": "List all customers from Germany",
+    "expected_output": {
+      "tool_calls": [
+        {
+          "name": "query_customers",
+          "args": {
+            "query": "SELECT customerID, first_name, last_name, email_address, city, country FROM samples.bakehouse.sales_customers WHERE country = 'Germany' LIMIT 20"
+          }
+        }
+      ]
+    },
+    "metadata": {
+      "category": "perfect_match",
+      "description": "Single tool, country filter on customers table",
+      "expected_behavior": "Agent calls query_customers with country = 'Germany'"
+    }
+  },
+  {
+    "id": "PERFECT-003",
+    "input": "Find all franchises in France",
+    "expected_output": {
+      "tool_calls": [
+        {
+          "name": "query_franchises",
+          "args": {
+            "query": "SELECT franchiseID, name, city, district, country, size FROM samples.bakehouse.sales_franchises WHERE country = 'France' LIMIT 20"
+          }
+        }
+      ]
+    },
+    "metadata": {
+      "category": "perfect_match",
+      "description": "Single tool, country filter on franchises table",
+      "expected_behavior": "Agent calls query_franchises with country = 'France'"
+    }
+  },
+  {
+    "id": "PERFECT-004",
+    "input": "Show me all approved suppliers",
+    "expected_output": {
+      "tool_calls": [
+        {
+          "name": "query_suppliers",
+          "args": {
+            "query": "SELECT supplierID, name, ingredient, continent, city, approved FROM samples.bakehouse.sales_suppliers WHERE approved = true LIMIT 20"
+          }
+        }
+      ]
+    },
+    "metadata": {
+      "category": "perfect_match",
+      "description": "Single tool, boolean filter on suppliers table",
+      "expected_behavior": "Agent calls query_suppliers with approved = true"
+    }
+  },
+  {
+    "id": "PERFECT-005",
+    "input": "Get all transactions paid by credit card",
+    "expected_output": {
+      "tool_calls": [
+        {
+          "name": "query_transactions",
+          "args": {
+            "query": "SELECT transactionID, customerID, franchiseID, dateTime, product, totalPrice, paymentMethod FROM samples.bakehouse.sales_transactions WHERE paymentMethod = 'credit card' LIMIT 20"
+          }
+        }
+      ]
+    },
+    "metadata": {
+      "category": "perfect_match",
+      "description": "Single tool, paymentMethod filter on transactions table",
+      "expected_behavior": "Agent calls query_transactions with paymentMethod = 'credit card'"
+    }
+  },
+  {
+    "id": "PERFECT-006",
+    "input": "Retrieve chunked review data for franchise 5 for semantic analysis",
+    "expected_output": {
+      "tool_calls": [
+        {
+          "name": "query_gold_reviews_chunked",
+          "args": {
+            "query": "SELECT franchiseID, chunked_text, chunk_id, review_date FROM samples.bakehouse.media_gold_reviews_chunked WHERE franchiseID = 5 LIMIT 20"
+          }
+        }
+      ]
+    },
+    "metadata": {
+      "category": "perfect_match",
+      "description": "Single tool, chunked reviews for RAG/semantic use case",
+      "expected_behavior": "Agent calls query_gold_reviews_chunked (not regular reviews) for semantic analysis"
+    }
+  },
+  {
+    "id": "PERFECT-007",
+    "input": "What are the top 10 transactions by total price?",
+    "expected_output": {
+      "tool_calls": [
+        {
+          "name": "query_transactions",
+          "args": {
+            "query": "SELECT transactionID, customerID, franchiseID, product, totalPrice, paymentMethod FROM samples.bakehouse.sales_transactions ORDER BY totalPrice DESC LIMIT 10"
+          }
+        }
+      ]
+    },
+    "metadata": {
+      "category": "perfect_match",
+      "description": "Single tool, ORDER BY + LIMIT for top-N query",
+      "expected_behavior": "Agent calls query_transactions with ORDER BY totalPrice DESC LIMIT 10"
+    }
+  },
+  {
+    "id": "MULTI-TOOL-001",
+    "input": "Get all customers from Italy and also show me the franchises in Italy",
+    "expected_output": {
+      "tool_calls": [
+        {
+          "name": "query_customers",
+          "args": {
+            "query": "SELECT customerID, first_name, last_name, email_address, city, country FROM samples.bakehouse.sales_customers WHERE country = 'Italy' LIMIT 20"
+          }
+        },
+        {
+          "name": "query_franchises",
+          "args": {
+            "query": "SELECT franchiseID, name, city, district, country, size FROM samples.bakehouse.sales_franchises WHERE country = 'Italy' LIMIT 20"
+          }
+        }
+      ]
+    },
+    "metadata": {
+      "category": "multi_tool",
+      "description": "Two tools for same country - customers then franchises",
+      "expected_behavior": "Agent calls query_customers and query_franchises both filtered by Italy"
+    }
+  },
+  {
+    "id": "MULTI-TOOL-002",
+    "input": "Show me the reviews for franchise 3 and also get the franchise details for franchise 3",
+    "expected_output": {
+      "tool_calls": [
+        {
+          "name": "query_customer_reviews",
+          "args": {
+            "query": "SELECT franchiseID, review, review_date FROM samples.bakehouse.media_customer_reviews WHERE franchiseID = 3 ORDER BY review_date DESC LIMIT 20"
+          }
+        },
+        {
+          "name": "query_franchises",
+          "args": {
+            "query": "SELECT franchiseID, name, city, district, country, size FROM samples.bakehouse.sales_franchises WHERE franchiseID = 3 LIMIT 20"
+          }
+        }
+      ]
+    },
+    "metadata": {
+      "category": "multi_tool",
+      "description": "Reviews + franchise details for same franchiseID",
+      "expected_behavior": "Agent calls query_customer_reviews and query_franchises both for franchiseID = 3"
+    }
+  },
+  {
+    "id": "MULTI-TOOL-003",
+    "input": "Look up customer 100's profile and show their purchase history",
+    "expected_output": {
+      "tool_calls": [
+        {
+          "name": "query_customers",
+          "args": {
+            "query": "SELECT customerID, first_name, last_name, email_address, city, country FROM samples.bakehouse.sales_customers WHERE customerID = 100 LIMIT 20"
+          }
+        },
+        {
+          "name": "query_transactions",
+          "args": {
+            "query": "SELECT transactionID, dateTime, product, quantity, totalPrice, paymentMethod FROM samples.bakehouse.sales_transactions WHERE customerID = 100 ORDER BY dateTime DESC LIMIT 20"
+          }
+        }
+      ]
+    },
+    "metadata": {
+      "category": "multi_tool",
+      "description": "Customer profile + transaction history for same customerID",
+      "expected_behavior": "Agent calls query_customers then query_transactions for customerID = 100"
+    }
+  },
+  {
+    "id": "MULTI-TOOL-004",
+    "input": "Find suppliers in Asia and list all franchises linked to supplier 10",
+    "expected_output": {
+      "tool_calls": [
+        {
+          "name": "query_suppliers",
+          "args": {
+            "query": "SELECT supplierID, name, ingredient, continent, city FROM samples.bakehouse.sales_suppliers WHERE continent = 'Asia' LIMIT 20"
+          }
+        },
+        {
+          "name": "query_franchises",
+          "args": {
+            "query": "SELECT franchiseID, name, city, country FROM samples.bakehouse.sales_franchises WHERE supplierID = 10 LIMIT 20"
+          }
+        }
+      ]
+    },
+    "metadata": {
+      "category": "multi_tool",
+      "description": "Suppliers by continent + franchises by supplierID - cross-entity multi-tool",
+      "expected_behavior": "Agent calls query_suppliers for Asia and query_franchises for supplierID = 10"
+    }
+  },
+  {
+    "id": "MULTI-TOOL-005",
+    "input": "Show me both the regular reviews and the chunked reviews for franchise 7",
+    "expected_output": {
+      "tool_calls": [
+        {
+          "name": "query_customer_reviews",
+          "args": {
+            "query": "SELECT franchiseID, review, review_date FROM samples.bakehouse.media_customer_reviews WHERE franchiseID = 7 ORDER BY review_date DESC LIMIT 20"
+          }
+        },
+        {
+          "name": "query_gold_reviews_chunked",
+          "args": {
+            "query": "SELECT franchiseID, chunked_text, chunk_id, review_date FROM samples.bakehouse.media_gold_reviews_chunked WHERE franchiseID = 7 LIMIT 20"
+          }
+        }
+      ]
+    },
+    "metadata": {
+      "category": "multi_tool",
+      "description": "Both review tables for same franchise - parallel tool usage",
+      "expected_behavior": "Agent calls both query_customer_reviews and query_gold_reviews_chunked for franchiseID = 7"
+    }
+  },
+  {
+    "id": "NO-TOOL-001",
+    "input": "What is the Bakehouse company's founding year?",
+    "expected_output": {
+      "tool_calls": []
+    },
+    "metadata": {
+      "category": "no_tool_needed",
+      "description": "General knowledge question - no data lookup needed",
+      "expected_behavior": "Agent responds from general knowledge without calling any tools"
+    }
+  },
+  {
+    "id": "NO-TOOL-002",
+    "input": "What SQL dialect does Databricks use?",
+    "expected_output": {
+      "tool_calls": []
+    },
+    "metadata": {
+      "category": "no_tool_needed",
+      "description": "Technical question about SQL - no data query needed",
+      "expected_behavior": "Agent answers from knowledge without calling tools"
+    }
+  },
+  {
+    "id": "NO-TOOL-003",
+    "input": "How does the chunked reviews table differ from the regular reviews table?",
+    "expected_output": {
+      "tool_calls": []
+    },
+    "metadata": {
+      "category": "no_tool_needed",
+      "description": "Schema explanation question - agent should explain from schema knowledge",
+      "expected_behavior": "Agent explains the difference without querying any table"
+    }
+  },
+  {
+    "id": "NO-TOOL-004",
+    "input": "Hi! What can you help me with?",
+    "expected_output": {
+      "tool_calls": []
+    },
+    "metadata": {
+      "category": "no_tool_needed",
+      "description": "Greeting and capability question - no tool call needed",
+      "expected_behavior": "Agent responds with its capabilities without calling any tools"
+    }
+  },
+  {
+    "id": "AMBIGUOUS-001",
+    "input": "Show me the reviews",
+    "expected_output": {
+      "tool_calls": []
+    },
+    "metadata": {
+      "category": "ambiguous",
+      "description": "Vague request - missing franchise ID or date range",
+      "expected_behavior": "Agent asks for clarification (which franchise? date range?) before querying"
+    }
+  },
+  {
+    "id": "AMBIGUOUS-002",
+    "input": "Get me the transactions",
+    "expected_output": {
+      "tool_calls": []
+    },
+    "metadata": {
+      "category": "ambiguous",
+      "description": "Vague request - no filter criteria specified for potentially large table",
+      "expected_behavior": "Agent asks for filter criteria before running an unbounded query"
+    }
+  },
+  {
+    "id": "AMBIGUOUS-003",
+    "input": "Find the supplier",
+    "expected_output": {
+      "tool_calls": []
+    },
+    "metadata": {
+      "category": "ambiguous",
+      "description": "Incomplete request - no supplier identifier given",
+      "expected_behavior": "Agent asks which supplier (by name, ID, or ingredient) before calling query_suppliers"
+    }
+  },
+  {
+    "id": "ARGS-001",
+    "input": "Get customer reviews from January 2024",
+    "expected_output": {
+      "tool_calls": [
+        {
+          "name": "query_customer_reviews",
+          "args": {
+            "query": "SELECT franchiseID, review, review_date FROM samples.bakehouse.media_customer_reviews WHERE review_date >= '2024-01-01' AND review_date < '2024-02-01' ORDER BY review_date DESC LIMIT 20"
+          }
+        }
+      ]
+    },
+    "metadata": {
+      "category": "argument_extraction",
+      "description": "Date range extraction from natural language month reference",
+      "expected_behavior": "Agent converts 'January 2024' to correct date range in SQL"
+    }
+  },
+  {
+    "id": "ARGS-002",
+    "input": "Find customers with email ending in @gmail.com",
+    "expected_output": {
+      "tool_calls": [
+        {
+          "name": "query_customers",
+          "args": {
+            "query": "SELECT customerID, first_name, last_name, email_address, city, country FROM samples.bakehouse.sales_customers WHERE email_address LIKE '%@gmail.com' LIMIT 20"
+          }
+        }
+      ]
+    },
+    "metadata": {
+      "category": "argument_extraction",
+      "description": "LIKE pattern extraction from natural language email domain filter",
+      "expected_behavior": "Agent uses LIKE '%@gmail.com' pattern in the query"
+    }
+  },
+  {
+    "id": "ARGS-003",
+    "input": "Count how many franchises are in each country",
+    "expected_output": {
+      "tool_calls": [
+        {
+          "name": "query_franchises",
+          "args": {
+            "query": "SELECT country, COUNT(*) AS franchise_count FROM samples.bakehouse.sales_franchises GROUP BY country ORDER BY franchise_count DESC"
+          }
+        }
+      ]
+    },
+    "metadata": {
+      "category": "argument_extraction",
+      "description": "GROUP BY aggregation from natural language count request",
+      "expected_behavior": "Agent generates GROUP BY country with COUNT(*) - no LIMIT for aggregation"
+    }
+  },
+  {
+    "id": "ARGS-004",
+    "input": "Find all large-sized suppliers in Europe",
+    "expected_output": {
+      "tool_calls": [
+        {
+          "name": "query_suppliers",
+          "args": {
+            "query": "SELECT supplierID, name, ingredient, continent, city, size FROM samples.bakehouse.sales_suppliers WHERE size = 'large' AND continent = 'Europe' LIMIT 20"
+          }
+        }
+      ]
+    },
+    "metadata": {
+      "category": "argument_extraction",
+      "description": "Multi-condition filter: size AND continent",
+      "expected_behavior": "Agent combines size = 'large' and continent = 'Europe' with AND"
+    }
+  },
+  {
+    "id": "ARGS-005",
+    "input": "What is the total revenue for franchise 7?",
+    "expected_output": {
+      "tool_calls": [
+        {
+          "name": "query_transactions",
+          "args": {
+            "query": "SELECT SUM(totalPrice) AS total_revenue FROM samples.bakehouse.sales_transactions WHERE franchiseID = 7"
+          }
+        }
+      ]
+    },
+    "metadata": {
+      "category": "argument_extraction",
+      "description": "SUM aggregation with franchiseID filter - revenue calculation",
+      "expected_behavior": "Agent generates SUM(totalPrice) with WHERE franchiseID = 7"
+    }
+  },
+  {
+    "id": "ARGS-006",
+    "input": "Search for reviews that mention 'croissant'",
+    "expected_output": {
+      "tool_calls": [
+        {
+          "name": "query_customer_reviews",
+          "args": {
+            "query": "SELECT franchiseID, review, review_date FROM samples.bakehouse.media_customer_reviews WHERE review ILIKE '%croissant%' ORDER BY review_date DESC LIMIT 20"
+          }
+        }
+      ]
+    },
+    "metadata": {
+      "category": "argument_extraction",
+      "description": "Text search using ILIKE pattern on review column",
+      "expected_behavior": "Agent uses ILIKE '%croissant%' for case-insensitive text search"
+    }
+  },
+  {
+    "id": "EDGE-001",
+    "input": "query_customer_reviews SELECT * FROM samples.bakehouse.media_customer_reviews LIMIT 5",
+    "expected_output": {
+      "tool_calls": [
+        {
+          "name": "query_customer_reviews",
+          "args": {
+            "query": "SELECT * FROM samples.bakehouse.media_customer_reviews LIMIT 5"
+          }
+        }
+      ]
+    },
+    "metadata": {
+      "category": "edge_case",
+      "description": "User directly provides tool name and SQL - agent should still work correctly",
+      "expected_behavior": "Agent calls query_customer_reviews with the provided SQL"
+    }
+  },
+  {
+    "id": "EDGE-002",
+    "input": "Show me franchise data",
+    "expected_output": {
+      "tool_calls": [
+        {
+          "name": "query_franchises",
+          "args": {
+            "query": "SELECT franchiseID, name, city, district, country, size FROM samples.bakehouse.sales_franchises LIMIT 20"
+          }
+        }
+      ]
+    },
+    "metadata": {
+      "category": "edge_case",
+      "description": "Minimal request - agent should query with sensible defaults and LIMIT",
+      "expected_behavior": "Agent calls query_franchises with a default SELECT and LIMIT 20"
+    }
+  },
+  {
+    "id": "EDGE-003",
+    "input": "Which suppliers supply cocoa?",
+    "expected_output": {
+      "tool_calls": [
+        {
+          "name": "query_suppliers",
+          "args": {
+            "query": "SELECT supplierID, name, ingredient, continent, city, approved FROM samples.bakehouse.sales_suppliers WHERE ingredient ILIKE '%cocoa%' LIMIT 20"
+          }
+        }
+      ]
+    },
+    "metadata": {
+      "category": "edge_case",
+      "description": "Ingredient search using ILIKE - tests text matching on ingredient column",
+      "expected_behavior": "Agent uses ILIKE '%cocoa%' on ingredient column"
+    }
+  },
+  {
+    "id": "CONVERSATIONAL-001",
+    "input": "Hi! I'm trying to understand our customer base. Can you pull up all customers from Canada for me?",
+    "expected_output": {
+      "tool_calls": [
+        {
+          "name": "query_customers",
+          "args": {
+            "query": "SELECT customerID, first_name, last_name, email_address, city, country FROM samples.bakehouse.sales_customers WHERE country = 'Canada' LIMIT 20"
+          }
+        }
+      ]
+    },
+    "metadata": {
+      "category": "conversational",
+      "description": "Conversational preamble with embedded data request",
+      "expected_behavior": "Agent extracts the Canada customer lookup from the conversational message"
+    }
+  },
+  {
+    "id": "CONVERSATIONAL-002",
+    "input": "Hey, quick question - what reviews did we get for franchise 42 last year?",
+    "expected_output": {
+      "tool_calls": [
+        {
+          "name": "query_customer_reviews",
+          "args": {
+            "query": "SELECT franchiseID, review, review_date FROM samples.bakehouse.media_customer_reviews WHERE franchiseID = 42 AND review_date >= '2025-01-01' AND review_date < '2026-01-01' ORDER BY review_date DESC LIMIT 20"
+          }
+        }
+      ]
+    },
+    "metadata": {
+      "category": "conversational",
+      "description": "Casual phrasing with franchiseID and relative date reference 'last year'",
+      "expected_behavior": "Agent extracts franchiseID = 42 and resolves 'last year' to 2025 date range"
+    }
+  },
+  {
+    "id": "CONVERSATIONAL-003",
+    "input": "I was wondering if you could help me find all the unapproved suppliers? We need to review them.",
+    "expected_output": {
+      "tool_calls": [
+        {
+          "name": "query_suppliers",
+          "args": {
+            "query": "SELECT supplierID, name, ingredient, continent, city, approved FROM samples.bakehouse.sales_suppliers WHERE approved = false LIMIT 20"
+          }
+        }
+      ]
+    },
+    "metadata": {
+      "category": "conversational",
+      "description": "Polite conversational request for unapproved suppliers",
+      "expected_behavior": "Agent calls query_suppliers with approved = false"
+    }
+  },
+  {
+    "id": "REAL-001",
+    "input": "Which product generates the most revenue across all franchises?",
+    "expected_output": {
+      "tool_calls": [
+        {
+          "name": "query_transactions",
+          "args": {
+            "query": "SELECT product, SUM(totalPrice) AS total_revenue FROM samples.bakehouse.sales_transactions GROUP BY product ORDER BY total_revenue DESC LIMIT 10"
+          }
+        }
+      ]
+    },
+    "metadata": {
+      "category": "real_world",
+      "description": "Product-level revenue aggregation - business analytics query",
+      "expected_behavior": "Agent calls query_transactions with GROUP BY product and SUM(totalPrice)"
+    }
+  },
+  {
+    "id": "REAL-002",
+    "input": "Show me the average transaction value per franchise",
+    "expected_output": {
+      "tool_calls": [
+        {
+          "name": "query_transactions",
+          "args": {
+            "query": "SELECT franchiseID, AVG(totalPrice) AS avg_transaction_value FROM samples.bakehouse.sales_transactions GROUP BY franchiseID ORDER BY avg_transaction_value DESC LIMIT 20"
+          }
+        }
+      ]
+    },
+    "metadata": {
+      "category": "real_world",
+      "description": "AVG aggregation grouped by franchiseID",
+      "expected_behavior": "Agent calls query_transactions with GROUP BY franchiseID and AVG(totalPrice)"
+    }
+  },
+  {
+    "id": "REAL-003",
+    "input": "Find all female customers in the USA",
+    "expected_output": {
+      "tool_calls": [
+        {
+          "name": "query_customers",
+          "args": {
+            "query": "SELECT customerID, first_name, last_name, email_address, city, state, country, gender FROM samples.bakehouse.sales_customers WHERE gender = 'Female' AND country = 'USA' LIMIT 20"
+          }
+        }
+      ]
+    },
+    "metadata": {
+      "category": "real_world",
+      "description": "Customer demographic filter - gender AND country",
+      "expected_behavior": "Agent calls query_customers with gender = 'Female' AND country = 'USA'"
+    }
+  },
+  {
+    "id": "REAL-004",
+    "input": "Get the chunked review data for franchise 15 to use in a semantic search pipeline",
+    "expected_output": {
+      "tool_calls": [
+        {
+          "name": "query_gold_reviews_chunked",
+          "args": {
+            "query": "SELECT franchiseID, chunked_text, chunk_id, review_date, review_uri FROM samples.bakehouse.media_gold_reviews_chunked WHERE franchiseID = 15 LIMIT 20"
+          }
+        }
+      ]
+    },
+    "metadata": {
+      "category": "real_world",
+      "description": "Chunked reviews for RAG/semantic search - must use gold_reviews_chunked not regular reviews",
+      "expected_behavior": "Agent calls query_gold_reviews_chunked (not query_customer_reviews) for semantic search"
+    }
+  },
+  {
+    "id": "REAL-005",
+    "input": "Which suppliers provide flour and are approved?",
+    "expected_output": {
+      "tool_calls": [
+        {
+          "name": "query_suppliers",
+          "args": {
+            "query": "SELECT supplierID, name, ingredient, continent, city, approved FROM samples.bakehouse.sales_suppliers WHERE ingredient ILIKE '%flour%' AND approved = true LIMIT 20"
+          }
+        }
+      ]
+    },
+    "metadata": {
+      "category": "real_world",
+      "description": "Supplier lookup by ingredient text search AND approval status",
+      "expected_behavior": "Agent calls query_suppliers with ILIKE '%flour%' AND approved = true"
+    }
+  },
+  {
+    "id": "REAL-006",
+    "input": "Show me all transactions for franchise 20 in Q1 2024",
+    "expected_output": {
+      "tool_calls": [
+        {
+          "name": "query_transactions",
+          "args": {
+            "query": "SELECT transactionID, customerID, dateTime, product, quantity, totalPrice, paymentMethod FROM samples.bakehouse.sales_transactions WHERE franchiseID = 20 AND dateTime BETWEEN '2024-01-01' AND '2024-03-31' ORDER BY dateTime DESC LIMIT 20"
+          }
+        }
+      ]
+    },
+    "metadata": {
+      "category": "real_world",
+      "description": "Transactions with franchiseID + Q1 date range using BETWEEN",
+      "expected_behavior": "Agent calls query_transactions with franchiseID = 20 and Q1 2024 date range"
+    }
+  },
+  {
+    "id": "PARTIAL-001",
+    "input": "Show me customers from Spain, their transactions, and the franchises in Spain",
+    "expected_output": {
+      "tool_calls": [
+        {
+          "name": "query_customers",
+          "args": {
+            "query": "SELECT customerID, first_name, last_name, email_address, city, country FROM samples.bakehouse.sales_customers WHERE country = 'Spain' LIMIT 20"
+          }
+        },
+        {
+          "name": "query_transactions",
+          "args": {
+            "query": "SELECT t.transactionID, t.customerID, t.dateTime, t.product, t.totalPrice FROM samples.bakehouse.sales_transactions t JOIN samples.bakehouse.sales_customers c ON t.customerID = c.customerID WHERE c.country = 'Spain' LIMIT 20"
+          }
+        },
+        {
+          "name": "query_franchises",
+          "args": {
+            "query": "SELECT franchiseID, name, city, district, country FROM samples.bakehouse.sales_franchises WHERE country = 'Spain' LIMIT 20"
+          }
+        }
+      ]
+    },
+    "metadata": {
+      "category": "partial_completion",
+      "description": "Three-tool request - agent might miss one of the three tools",
+      "expected_behavior": "Agent calls all three: query_customers, query_transactions, and query_franchises for Spain"
+    }
+  },
+  {
+    "id": "WRONG-ORDER-001",
+    "input": "First get the franchise details for franchise 20, then show me its customer reviews",
+    "expected_output": {
+      "tool_calls": [
+        {
+          "name": "query_franchises",
+          "args": {
+            "query": "SELECT franchiseID, name, city, district, country, size FROM samples.bakehouse.sales_franchises WHERE franchiseID = 20 LIMIT 20"
+          }
+        },
+        {
+          "name": "query_customer_reviews",
+          "args": {
+            "query": "SELECT franchiseID, review, review_date FROM samples.bakehouse.media_customer_reviews WHERE franchiseID = 20 ORDER BY review_date DESC LIMIT 20"
+          }
+        }
+      ]
+    },
+    "metadata": {
+      "category": "wrong_order",
+      "description": "Explicit ordering instruction - franchise details first, then reviews",
+      "expected_behavior": "Agent calls query_franchises before query_customer_reviews as explicitly instructed"
+    }
+  },
+  {
+    "id": "WRONG-ORDER-002",
+    "input": "Look up supplier 5 first, then find all franchises that use supplier 5",
+    "expected_output": {
+      "tool_calls": [
+        {
+          "name": "query_suppliers",
+          "args": {
+            "query": "SELECT supplierID, name, ingredient, continent, city FROM samples.bakehouse.sales_suppliers WHERE supplierID = 5 LIMIT 20"
+          }
+        },
+        {
+          "name": "query_franchises",
+          "args": {
+            "query": "SELECT franchiseID, name, city, country FROM samples.bakehouse.sales_franchises WHERE supplierID = 5 LIMIT 20"
+          }
+        }
+      ]
+    },
+    "metadata": {
+      "category": "wrong_order",
+      "description": "Explicit ordering - supplier lookup before franchise lookup",
+      "expected_behavior": "Agent calls query_suppliers before query_franchises as instructed"
+    }
+  },
+  {
+    "id": "COMPLEX-001",
+    "input": "Give me a full picture of franchise 8: its details, all customer reviews, and total sales revenue",
+    "expected_output": {
+      "tool_calls": [
+        {
+          "name": "query_franchises",
+          "args": {
+            "query": "SELECT franchiseID, name, city, district, country, size FROM samples.bakehouse.sales_franchises WHERE franchiseID = 8 LIMIT 20"
+          }
+        },
+        {
+          "name": "query_customer_reviews",
+          "args": {
+            "query": "SELECT franchiseID, review, review_date FROM samples.bakehouse.media_customer_reviews WHERE franchiseID = 8 ORDER BY review_date DESC LIMIT 20"
+          }
+        },
+        {
+          "name": "query_transactions",
+          "args": {
+            "query": "SELECT SUM(totalPrice) AS total_revenue, COUNT(*) AS transaction_count FROM samples.bakehouse.sales_transactions WHERE franchiseID = 8"
+          }
+        }
+      ]
+    },
+    "metadata": {
+      "category": "multi_tool",
+      "description": "Three-tool comprehensive franchise overview - details, reviews, and revenue",
+      "expected_behavior": "Agent calls query_franchises, query_customer_reviews, and query_transactions for franchiseID = 8"
+    }
+  },
+  {
+    "id": "COMPLEX-002",
+    "input": "Which continent has the most unapproved suppliers? Show me the count by continent.",
+    "expected_output": {
+      "tool_calls": [
+        {
+          "name": "query_suppliers",
+          "args": {
+            "query": "SELECT continent, COUNT(*) AS unapproved_count FROM samples.bakehouse.sales_suppliers WHERE approved = false GROUP BY continent ORDER BY unapproved_count DESC"
+          }
+        }
+      ]
+    },
+    "metadata": {
+      "category": "real_world",
+      "description": "Aggregation with boolean filter and GROUP BY continent",
+      "expected_behavior": "Agent calls query_suppliers with approved = false, GROUP BY continent, COUNT(*)"
+    }
+  }
+]

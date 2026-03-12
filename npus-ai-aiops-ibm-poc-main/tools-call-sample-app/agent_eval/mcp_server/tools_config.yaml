@@ -1,0 +1,205 @@
+# =============================================================================
+# MCP Server Tool Definitions
+# =============================================================================
+#
+# This file drives the MCP server tool registration.
+# To add, remove, or modify tools — edit ONLY this file.
+# No Python changes are required.
+#
+# Each tool entry:
+#   name        : (required) Tool function name exposed to the agent
+#   description : (required) What the tool does — used by the LLM for tool selection
+#   table       : (optional) Fully-qualified table name for documentation
+#   usage_hint  : (optional) One-line hint on when to use this tool
+#   schema      : (optional) List of {column, type} pairs for the table schema
+#
+# The server registers every tool with a single shared handler:
+#   handlers.run_databricks_query(query)
+#
+# To adapt for a different domain:
+#   1. Replace the tool entries below with your domain's tools
+#   2. Update the schema columns to match your tables
+#   3. Restart the MCP server — no Python changes needed
+# =============================================================================
+
+server:
+  name: BakehouseDataServer
+
+tools:
+
+  - name: query_customer_reviews
+    table: samples.bakehouse.media_customer_reviews
+    usage_hint: >
+      Use to retrieve customer reviews, filter by franchise, date range,
+      or search review text. Always pass a valid SQL SELECT statement.
+    description: >
+      Query the samples.bakehouse.media_customer_reviews table.
+      Use to retrieve customer reviews, filter by franchise, date range,
+      or search review text. Always pass a valid SQL SELECT statement.
+    schema:
+      - column: franchiseID
+        type: bigint
+      - column: new_id
+        type: int
+      - column: review
+        type: string
+      - column: review_date
+        type: timestamp
+
+  - name: query_gold_reviews_chunked
+    table: samples.bakehouse.media_gold_reviews_chunked
+    usage_hint: >
+      Use for chunked/processed review data, semantic search, RAG pipelines,
+      or chunk-level analysis. Always pass a valid SQL SELECT statement.
+    description: >
+      Query the samples.bakehouse.media_gold_reviews_chunked table.
+      Use to retrieve chunked/processed review data, useful for
+      semantic search, RAG pipelines, or chunk-level analysis.
+      Always pass a valid SQL SELECT statement.
+    schema:
+      - column: franchiseID
+        type: int
+      - column: review_date
+        type: timestamp
+      - column: chunked_text
+        type: string
+      - column: chunk_id
+        type: string
+      - column: review_uri
+        type: string
+
+  - name: query_customers
+    table: samples.bakehouse.sales_customers
+    usage_hint: >
+      Use to look up customer profiles, filter by location, email,
+      name, or demographic attributes. Always pass a valid SQL SELECT statement.
+    description: >
+      Query the samples.bakehouse.sales_customers table.
+      Use to look up customer profiles, filter by location, email,
+      name, or demographic attributes. Always pass a valid SQL SELECT statement.
+    schema:
+      - column: customerID
+        type: bigint
+      - column: first_name
+        type: string
+      - column: last_name
+        type: string
+      - column: email_address
+        type: string
+      - column: phone_number
+        type: string
+      - column: address
+        type: string
+      - column: city
+        type: string
+      - column: state
+        type: string
+      - column: country
+        type: string
+      - column: continent
+        type: string
+      - column: postal_zip_code
+        type: bigint
+      - column: gender
+        type: string
+
+  - name: query_franchises
+    table: samples.bakehouse.sales_franchises
+    usage_hint: >
+      Use to retrieve franchise locations, filter by city, country,
+      district, size, or find franchises linked to a specific supplier.
+      Always pass a valid SQL SELECT statement.
+    description: >
+      Query the samples.bakehouse.sales_franchises table.
+      Use to retrieve franchise locations, filter by city, country,
+      district, size, or find franchises linked to a specific supplier.
+      Always pass a valid SQL SELECT statement.
+    schema:
+      - column: franchiseID
+        type: bigint
+      - column: name
+        type: string
+      - column: city
+        type: string
+      - column: district
+        type: string
+      - column: zipcode
+        type: string
+      - column: country
+        type: string
+      - column: size
+        type: string
+      - column: longitude
+        type: double
+      - column: latitude
+        type: double
+      - column: supplierID
+        type: bigint
+
+  - name: query_suppliers
+    table: samples.bakehouse.sales_suppliers
+    usage_hint: >
+      Use to look up suppliers by ingredient, location (city, continent,
+      district), size, approval status, or supplier ID.
+      Always pass a valid SQL SELECT statement.
+    description: >
+      Query the samples.bakehouse.sales_suppliers table.
+      Use to look up suppliers by ingredient, location (city, continent,
+      district), size, approval status, or supplier ID.
+      Always pass a valid SQL SELECT statement.
+    schema:
+      - column: supplierID
+        type: bigint
+      - column: name
+        type: string
+      - column: ingredient
+        type: string
+      - column: continent
+        type: string
+      - column: city
+        type: string
+      - column: district
+        type: string
+      - column: size
+        type: string
+      - column: longitude
+        type: double
+      - column: latitude
+        type: double
+      - column: approved
+        type: boolean
+
+  - name: query_transactions
+    table: samples.bakehouse.sales_transactions
+    usage_hint: >
+      Use to retrieve sales transactions, filter by customer, franchise,
+      product, date range, payment method, or aggregate sales metrics.
+      Always pass a valid SQL SELECT statement.
+    description: >
+      Query the samples.bakehouse.sales_transactions table.
+      Use to retrieve sales transactions, filter by customer, franchise,
+      product, date range, payment method, or aggregate sales metrics.
+      Always pass a valid SQL SELECT statement.
+    schema:
+      - column: transactionID
+        type: bigint
+      - column: customerID
+        type: bigint
+      - column: franchiseID
+        type: bigint
+      - column: dateTime
+        type: timestamp
+      - column: product
+        type: string
+      - column: quantity
+        type: bigint
+      - column: unitPrice
+        type: bigint
+      - column: totalPrice
+        type: bigint
+      - column: paymentMethod
+        type: string
+      - column: cardNumber
+        type: string
+
+

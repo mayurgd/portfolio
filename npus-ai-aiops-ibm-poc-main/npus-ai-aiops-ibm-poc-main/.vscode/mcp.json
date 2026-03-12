@@ -1,0 +1,23 @@
+{
+    "inputs": [
+    {
+      "type": "promptString",
+      "id": "context7_api_key",
+      "description": "Context7 API Key for MCP",
+      "password": true
+    }
+  ],
+  "servers": {
+    "context7": {
+      "type": "http",
+      "url": "https://mcp.context7.com/mcp",
+      "headers": {
+        "CONTEXT7_API_KEY": "${input:context7_api_key}"
+      }
+    },
+    "io.github.github/github-mcp-server": {
+      "type": "http",
+      "url": "https://api.githubcopilot.com/mcp/",
+    }
+  }
+}

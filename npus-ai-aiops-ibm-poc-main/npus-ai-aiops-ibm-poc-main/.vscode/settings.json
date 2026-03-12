@@ -1,0 +1,35 @@
+{
+  // Automatically activate venv in new terminals
+  "python.defaultInterpreterPath": "${workspaceFolder}/.venv/bin/python",
+  "python.terminal.activateEnvironment": true,
+  "python.terminal.activateEnvInCurrentTerminal": true,
+  // Hide derivative/generated content from file explorer
+  "files.exclude": {
+    "**/__pycache__": true,
+    "**/*.pyc": true,
+    "**/*.pyo": true,
+    ".venv": true,
+    "**/*.egg-info": true,
+    ".pytest_cache": true,
+    ".ruff_cache": true,
+    ".mypy_cache": true,
+    "**/.ipynb_checkpoints": true,
+    ".coverage": true,
+    "htmlcov": true,
+    "dist": true,
+    "build": true
+  },
+  "chat.tools.terminal.autoApprove": {
+    "uv": true,
+    "git add": true,
+    "git commit": true
+  },
+  "editor.tabSize": 2,
+  "editor.insertSpaces": true,
+  "editor.wordWrap": "on",
+  "editor.formatOnSave": true,
+  "editor.formatOnPaste": true,
+  // Debug settings - allow stepping into external code
+  "python.debugpy.justMyCode": false,
+  "jupyter.debugJustMyCode": false
+}
