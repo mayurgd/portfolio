@@ -9,14 +9,20 @@ import langchainIcon from './assets/icons/langchain.png'
 import langgraphIcon from './assets/icons/langgraph.png'
 import crewaiIcon from './assets/icons/crewai.png'
 import microsoftIcon from './assets/icons/microsoft.png'
-import backstageIcon from './assets/icons/backstage.png'
 import deloitteIcon from './assets/icons/deloitte.png'
 import {
-  FaPhoneAlt, FaEnvelope, FaMapMarkerAlt, FaLinkedin, FaGithub,
-  FaUser, FaBolt, FaBriefcase, FaFolderOpen, FaGraduationCap,
-  FaCertificate, FaTrophy, FaAws,
+  FaEnvelope, FaLinkedin, FaGithub,
+  FaUser, FaBolt, FaBriefcase, FaGraduationCap,
+  FaCertificate, FaTrophy, FaAws, FaAward, FaCode, FaBookOpen, FaFileDownload, FaServer, FaDatabase, FaStream,
 } from 'react-icons/fa'
-import { SiLeetcode, SiPython, SiApachespark, SiGooglecloud, SiDatabricks, SiKubernetes, SiRedhatopenshift, SiFastapi, SiMlflow, SiPytorch, SiTensorflow, SiDocker, SiRedis, SiGithubactions, SiHelm, SiArgo, SiScikitlearn } from 'react-icons/si'
+import { SiGooglebigquery, SiMongodb, SiRedis, SiApachekafka, SiApacheairflow, SiWarnerbros, SiLeetcode, SiPython, SiApachespark, SiGooglecloud, SiDatabricks, SiKubernetes, SiRedhatopenshift, SiFastapi, SiMlflow, SiPytorch, SiTensorflow, SiDocker, SiGithubactions, SiHelm, SiArgo, SiScikitlearn } from 'react-icons/si'
+
+const RESUME_FILENAME = 'Mayur_G_D_CV.pdf'
+const RESUME_URL = `${import.meta.env.BASE_URL}${RESUME_FILENAME}`
+
+const DAY_MS = 1000 * 60 * 60 * 24
+const CAREER_START = new Date('2020-08-17')
+const yearsSince = (d) => Math.floor((new Date() - d) / (DAY_MS * 365))
 
 const TECH_STACK = [
   {
@@ -33,11 +39,13 @@ const TECH_STACK = [
     accent: '#3b82f6',
     items: [
       { name: 'GCP',        Icon: SiGooglecloud },
+      { name: 'BigQuery',   Icon: SiGooglebigquery },
+      { name: 'Cloud Run',  Icon: FaServer },
+      { name: 'Vertex AI', iconSrc: vertexaiIcon },
       { name: 'Databricks', Icon: SiDatabricks },
       { name: 'Azure', iconSrc: azureIcon },
       { name: 'Kubernetes', Icon: SiKubernetes },
       { name: 'OpenShift',  Icon: SiRedhatopenshift },
-      { name: 'VertexAI', iconSrc: vertexaiIcon },
       { name: 'AWS',        Icon: FaAws },
     ],
   },
@@ -45,15 +53,16 @@ const TECH_STACK = [
     category: 'AI / ML',
     accent: '#ef4444',
     chipStyle: true,
+    tall: true,
     items: [
-      { name: 'Supervised & Unsupervised' },
+      { name: 'Classical ML' },
       { name: 'Deep Learning' },
-      { name: 'Time Series' },
+      { name: 'Time Series Forecasting' },
       { name: 'NLP' },
-      { name: 'Gen AI' },
+      { name: 'LLMs & RAG' },
       { name: 'Agentic AI' },
-      { name: 'RAG' },
-      { name: 'LLM' },
+      { name: 'Multimodal / Video Understanding' },
+      { name: 'Speech & Audio AI (TTS, ASR)' },
       { name: 'MCP' },
     ],
   },
@@ -61,56 +70,64 @@ const TECH_STACK = [
     category: 'Frameworks & Libraries',
     accent: '#22c55e',
     items: [
+      { name: 'PyTorch',     Icon: SiPytorch },
+      { name: 'MLflow',      Icon: SiMlflow },
+      { name: 'scikit-learn', Icon: SiScikitlearn },
+      { name: 'TensorFlow',  Icon: SiTensorflow },
       { name: 'FastAPI',     Icon: SiFastapi },
       { name: 'Langfuse', iconSrc: langfuseIcon },
-      { name: 'MLFlow',      Icon: SiMlflow },
-      { name: 'PyTorch',     Icon: SiPytorch },
-      { name: 'TensorFlow',  Icon: SiTensorflow },
-      { name: 'scikit-learn', Icon: SiScikitlearn },
     ],
   },
   {
     category: 'Agent Frameworks',
     accent: '#a855f7',
     items: [
-      { name: 'LangChain', iconSrc: langchainIcon },
       { name: 'LangGraph', iconSrc: langgraphIcon },
+      { name: 'LangChain', iconSrc: langchainIcon },
       { name: 'CrewAI', iconSrc: crewaiIcon },
       { name: 'MS Agent Framework', iconSrc: microsoftIcon },
     ],
   },
   {
-    category: 'Data & DevOps Tools',
+    category: 'Data & Vector Stores',
+    accent: '#ec4899',
+    items: [
+      { name: 'ChromaDB',      Icon: FaDatabase },
+      { name: 'MongoDB Atlas', Icon: SiMongodb },
+      { name: 'Redis',         Icon: SiRedis },
+      { name: 'Kafka',         Icon: SiApachekafka },
+    ],
+  },
+  {
+    category: 'MLOps & Orchestration',
     accent: '#f97316',
     items: [
+      { name: 'Metaflow',       Icon: FaStream },
+      { name: 'Airflow',        Icon: SiApacheairflow },
       { name: 'Docker',         Icon: SiDocker },
-      { name: 'Redis',          Icon: SiRedis },
       { name: 'GitHub Actions', Icon: SiGithubactions },
       { name: 'Helm',           Icon: SiHelm },
       { name: 'Argo',           Icon: SiArgo },
-      { name: 'Backstage', iconSrc: backstageIcon },
     ],
   },
 ]
 
 const NAV = [
-  { id: 'home',           Icon: FaUser,          label: 'Home'         },
-  { id: 'skills',         Icon: FaBolt,          label: 'Tech Stack'   },
-  { id: 'experience',     Icon: FaBriefcase,     label: 'Experience'   },
-  { id: 'projects',       Icon: FaFolderOpen,    label: 'Projects'     },
-  { id: 'education',      Icon: FaGraduationCap, label: 'Education'    },
-  { id: 'certifications', Icon: FaCertificate,   label: 'Certifications'},
-  { id: 'awards',         Icon: FaTrophy,        label: 'Awards'       },
+  { id: 'home',           Icon: FaUser,          label: 'Home'           },
+  { id: 'experience',     Icon: FaBriefcase,     label: 'Experience'     },
+  { id: 'skills',         Icon: FaBolt,          label: 'Tech Stack'     },
+  { id: 'awards',         Icon: FaTrophy,        label: 'Awards'         },
+  { id: 'certifications', Icon: FaCertificate,   label: 'Certifications' },
+  { id: 'education',      Icon: FaGraduationCap, label: 'Education'      },
 ]
 
 const CAPTIONS = {
-  home:           'MEANWHILE... IN THE DATA DIMENSION',
-  skills:         'WEAPONS EQUIPPED ⚡ ARSENAL UNLOCKED',
-  experience:     'YEARS IN THE FIELD ◆ BATTLE HARDENED',
-  projects:       'MISSIONS DEPLOYED ★ CODE IN THE WILD',
-  education:      'ORIGIN STORY ✦ WHERE IT ALL BEGAN',
-  certifications: 'BADGES OF HONOUR ◈ SKILLS CERTIFIED',
-  awards:         'HALL OF FAME 🕷 VICTORIES LOGGED',
+  home:           'Senior Machine Learning Engineer · Bengaluru, India',
+  skills:         'Tech Stack',
+  experience:     'Experience',
+  education:      'Education',
+  certifications: 'Certifications',
+  awards:         'Awards & Recognition',
 }
 
 /* ── Tech Stack section ── */
@@ -118,11 +135,10 @@ function TechStack() {
   return (
     <div className="techstack-wrapper">
       <div className="techstack">
-        {TECH_STACK.map(({ category, accent, chipStyle, items }, idx) => (
-          <div key={category} className="techstack-col" style={{ '--cat-accent': accent }}>
+        {TECH_STACK.map(({ category, accent, chipStyle, tall, items }) => (
+          <div key={category} className="techstack-col" style={{ '--cat-accent': accent, gridRow: tall ? 'span 2' : undefined }}>
             <div className="techstack-col-header">
               <span className="techstack-col-header-text">{category}</span>
-              <span className="techstack-col-num">#{String(idx + 1).padStart(2, '0')}</span>
             </div>
             {chipStyle ? (
               <div className="techstack-chip-grid">
@@ -149,98 +165,123 @@ function TechStack() {
 }
 
 /* ── Experience section ── */
+const COMPANIES = [
+  {
+    name: 'WARNER BROS.',
+    suffix: 'DISCOVERY',
+    short: 'WBD',
+    location: 'Bengaluru · Media & Entertainment',
+    Logo: SiWarnerbros,
+    from: new Date('2026-04-20'),
+    to:   null,
+    roles: [
+      {
+        title: 'Senior ML Engineer',
+        period: 'Apr 2026 — Present',
+        accent: '#a855f7',
+        points: [
+          'Built an end-to-end generative AI pipeline that writes audio description scripts for films and series, using Gemini video understanding with speech and scene analysis to find and narrate the gaps between dialogue.',
+          'Took it to production on GCP for feature-length titles, with evaluation against human-written scripts and cost tracking per title.',
+          'Built the initial text-to-speech prototype that narrates AD scripts with Gemini TTS, including a narrator-voice profiler and an automated quality framework (timing fit, word accuracy, naturalness, voice consistency) whose checks carried into the production service.',
+        ],
+      },
+    ],
+  },
+  {
+    name: 'DELOITTE',
+    suffix: 'USI',
+    short: 'DELOITTE',
+    location: 'Bengaluru · Consulting for US clients',
+    logoSrc: deloitteIcon,
+    from: new Date('2020-08-17'),
+    to:   new Date('2026-04-10'),
+    roles: [
+      {
+        title: 'Consultant — Data Scientist',
+        period: 'Jun 2023 — Apr 2026',
+        accent: '#3b82f6',
+        points: [
+          'Owned the demand-forecasting solver integration through MVP and built a new forecasting model that significantly improved forecast accuracy and efficiency.',
+          'Built agentic AI applications with CrewAI and LangGraph for AIOps and infrastructure automation.',
+          'Developed reusable Databricks MLOps stack templates for model training, deployment and job orchestration.',
+        ],
+      },
+      {
+        title: 'Analyst — Data Scientist',
+        period: 'Aug 2020 — May 2023',
+        accent: '#22c55e',
+        points: [
+          'Cut processing time by more than 10x across key sections of a clustering pipeline and became the team expert on its clustering models.',
+          'Led the migration of model code to PySpark and set up MLflow experiment tracking and scheduled jobs, improving scalability and run traceability.',
+        ],
+      },
+    ],
+  },
+]
+
+function tenure(from, to) {
+  const ms = (to ?? new Date()) - from
+  return {
+    yrs: Math.floor(ms / (DAY_MS * 365)),
+    mos: Math.floor((ms / (DAY_MS * 30.44)) % 12),
+  }
+}
+
 function Experience() {
-  const totalStart = new Date('2020-08-17')
-  const totalEnd   = new Date('2026-04-12')
-  const totalMs    = totalEnd - totalStart
-  const totalYears = Math.floor(totalMs / (1000 * 60 * 60 * 24 * 365))
-  const totalMonths = Math.floor((totalMs / (1000 * 60 * 60 * 24 * 30.44)) % 12)
-
-  const roles = [
-    {
-      title: 'Consultant — Data Scientist',
-      subtitle: 'Senior Operative',
-      period: '01 Jun 2023 — 12 Apr 2026',
-      from: new Date('2023-06-01'),
-      to:   new Date('2026-04-12'),
-      accent: '#3b82f6',
-      issue: '02',
-      action: 'LEVEL UP!',
-    },
-    {
-      title: 'Analyst — Data Scientist',
-      subtitle: 'Origin Arc',
-      period: '17 Aug 2020 — 31 May 2023',
-      from: new Date('2020-08-17'),
-      to:   new Date('2023-05-31'),
-      accent: '#22c55e',
-      issue: '01',
-      action: 'BOOM!',
-    },
-  ]
-
   return (
     <div className="exp-wrapper">
-
-      {/* ── Splash header ── */}
-      <div className="exp-splash">
-        <div className="exp-splash-bg" />
-        <div className="exp-splash-left">
-          <div className="exp-splash-eyebrow">FIELD REPORT &nbsp;///&nbsp; ACTIVE SINCE 2020</div>
-          <div className="exp-splash-company">DELOITTE <span className="exp-splash-usi">USI</span></div>
-          <div className="exp-splash-tagline">&ldquo; Turning data into decisions, one sprint at a time. &rdquo;</div>
-        </div>
-        <div className="exp-splash-center">
-          <img src={deloitteIcon} alt="Deloitte" className="exp-splash-logo" />
-        </div>
-        <div className="exp-splash-right">
-          <div className="exp-splash-stat">
-            <span className="exp-splash-stat-val">{totalYears}</span>
-            <span className="exp-splash-stat-unit">YRS</span>
-          </div>
-          <div className="exp-splash-divider" />
-          <div className="exp-splash-stat">
-            <span className="exp-splash-stat-val">{totalMonths}</span>
-            <span className="exp-splash-stat-unit">MOS</span>
-          </div>
-          <div className="exp-splash-stat-label">TOTAL<br/>EXPERIENCE</div>
-        </div>
-      </div>
-
-      {/* ── Role panels ── */}
-      <div className="exp-panels">
-        {roles.map(({ title, subtitle, period, from, to, accent, issue, action }, i) => {
-          const durMs = to - from
-          const durYrs = Math.floor(durMs / (1000 * 60 * 60 * 24 * 365))
-          const durMos = Math.floor((durMs / (1000 * 60 * 60 * 24 * 30.44)) % 12)
-          const pct = Math.round((durMs / totalMs) * 100)
-          return (
-            <div key={title} className="exp-timeline-row">
-              <div className="exp-timeline-spine">
-                <div className="exp-timeline-dot" style={{ background: accent, borderColor: accent }} />
-                {i < roles.length - 1 && <div className="exp-timeline-line" style={{ background: `linear-gradient(to bottom, ${accent}, var(--grey-light))` }} />}
+      {COMPANIES.map(({ name, suffix, short, location, Logo, logoSrc, from, to, roles }) => {
+        const { yrs, mos } = tenure(from, to)
+        return (
+          <div key={name} className="exp-company">
+            <div className="exp-splash">
+              <div className="exp-splash-left">
+                <div className="exp-splash-eyebrow">
+                  {from.getFullYear()} — {to ? to.getFullYear() : 'PRESENT'}
+                </div>
+                <div className="exp-splash-company">{name} <span className="exp-splash-usi">{suffix}</span></div>
+                <div className="exp-splash-tagline">{location}</div>
               </div>
-              <div className="exp-panel" style={{ '--role-accent': accent }}>
-                <div className="exp-panel-header">
-                  <span className="exp-panel-issue">ISSUE #{issue}</span>
-                  <span className="exp-panel-action">{action}</span>
+              <div className="exp-splash-center">
+                {Logo && <Logo className="exp-splash-logo" aria-label={`${name} ${suffix}`} />}
+                {logoSrc && <img src={logoSrc} alt={`${name} ${suffix}`} className="exp-splash-logo" />}
+              </div>
+              <div className="exp-splash-right">
+                <div className="exp-splash-stat">
+                  <span className="exp-splash-stat-val">{yrs}</span>
+                  <span className="exp-splash-stat-unit">YRS</span>
                 </div>
-                <div className="exp-panel-title">{title}</div>
-                <div className="exp-panel-subtitle">{subtitle}</div>
-                <div className="exp-panel-period">{period}</div>
-                <div className="exp-panel-bar-wrap">
-                  <div className="exp-panel-bar" style={{ width: `${pct}%` }} />
+                <div className="exp-splash-divider" />
+                <div className="exp-splash-stat">
+                  <span className="exp-splash-stat-val">{mos}</span>
+                  <span className="exp-splash-stat-unit">MOS</span>
                 </div>
-                <span className="exp-panel-bar-label">{pct}% OF CAREER</span>
-                <div className="exp-panel-dur">
-                  {durYrs > 0 && <><span className="exp-panel-dur-val">{durYrs}</span><span className="exp-panel-dur-unit">yr</span></>}
-                  {durMos > 0 && <><span className="exp-panel-dur-val">{durMos}</span><span className="exp-panel-dur-unit">mo</span></>}
-                </div>
+                <div className="exp-splash-stat-label">AT<br/>{short}</div>
               </div>
             </div>
-          )
-        })}
-      </div>
+
+            <div className="exp-panels">
+              {roles.map(({ title, period, accent, points }, i) => (
+                <div key={title} className="exp-timeline-row">
+                  <div className="exp-timeline-spine">
+                    <div className="exp-timeline-dot" style={{ background: accent, borderColor: accent }} />
+                    {i < roles.length - 1 && <div className="exp-timeline-line" style={{ background: `linear-gradient(to bottom, ${accent}, var(--grey-light))` }} />}
+                  </div>
+                  <div className="exp-panel" style={{ '--role-accent': accent }}>
+                    <div className="exp-panel-title">{title}</div>
+                    <div className="exp-panel-period">{period}</div>
+                    {points.length > 0 && (
+                      <ul className="exp-panel-points">
+                        {points.map((p) => <li key={p}>{p}</li>)}
+                      </ul>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )
+      })}
     </div>
   )
 }
@@ -253,9 +294,9 @@ const EDUCATION = [
     degree: 'B.Tech — Electronics & Communication Engineering',
     period: '2016 — 2020',
     accent: '#3b82f6',
-    tag: 'UNDERGRADUATE',
+    tag: 'BACHELOR OF TECHNOLOGY',
     stats: [
-      { label: 'GPA', value: '9.24' },
+      { label: 'CGPA', value: '9.24 / 10' },
     ],
   },
   {
@@ -277,7 +318,7 @@ const EDUCATION = [
     accent: '#f97316',
     tag: 'SECONDARY',
     stats: [
-      { label: 'GPA', value: '10.0' },
+      { label: 'CGPA', value: '10.0 / 10' },
     ],
   },
 ]
@@ -295,7 +336,6 @@ function Education() {
             <div className="edu-card">
               <div className="edu-card-header">
                 <span className="edu-tag">{tag}</span>
-                <span className="edu-index">#{String(idx + 1).padStart(2, '0')}</span>
               </div>
               <div className="edu-institution">{institution}</div>
               <div className="edu-degree">{degree}</div>
@@ -316,7 +356,6 @@ function Education() {
           </div>
         ))}
       </div>
-      <div className="edu-scroll-tag">KNOWLEDGE ARC — ORIGIN STORY</div>
     </div>
   )
 }
@@ -331,7 +370,7 @@ const CERTS = [
     expires: 'Feb 2028',
     accent: '#ef4444',
     tag: 'ACTIVE',
-    icon: '🏅',
+    Icon: SiDatabricks,
     level: 'ASSOCIATE',
   },
   {
@@ -342,7 +381,7 @@ const CERTS = [
     expires: 'Dec 2027',
     accent: '#f97316',
     tag: 'ACTIVE',
-    icon: '⚡',
+    Icon: SiDatabricks,
     level: 'ASSOCIATE',
   },
   {
@@ -352,8 +391,8 @@ const CERTS = [
     issued: 'Apr 2024',
     expires: null,
     accent: '#3b82f6',
-    tag: 'LIFETIME',
-    icon: '🎓',
+    tag: 'COMPLETED',
+    Icon: FaGraduationCap,
     level: 'SPECIALIZATION',
   },
   {
@@ -363,8 +402,8 @@ const CERTS = [
     issued: 'Mar 2020',
     expires: null,
     accent: '#22c55e',
-    tag: 'LIFETIME',
-    icon: '🧩',
+    tag: 'COMPLETED',
+    Icon: FaCode,
     level: 'COMPLETION',
   },
 ]
@@ -380,15 +419,23 @@ const COURSERA_CERTS = [
   { title: 'Programming for Everybody (Python)',             year: '2021' },
 ]
 
-function CertRow({ id, title, issuer, issued, expires, accent, tag, icon, level, withLine }) {
+const COURSERA_ACCENT = '#0056d2'
+
+function CertSpine({ accent, Icon, withLine }) {
+  return (
+    <div className="cert-spine">
+      <div className="cert-spine-icon" style={{ background: accent, borderColor: accent }}>
+        <Icon className="cert-spine-emoji" />
+      </div>
+      {withLine && <div className="cert-spine-line" style={{ background: `linear-gradient(to bottom, ${accent}, var(--grey-light))` }} />}
+    </div>
+  )
+}
+
+function CertRow({ title, issuer, issued, expires, accent, tag, Icon, level, withLine }) {
   return (
     <div className="cert-row">
-      <div className="cert-spine">
-        <div className="cert-spine-icon" style={{ background: accent, borderColor: accent }}>
-          <span className="cert-spine-emoji">{icon}</span>
-        </div>
-        {withLine && <div className="cert-spine-line" style={{ background: `linear-gradient(to bottom, ${accent}, var(--grey-light))` }} />}
-      </div>
+      <CertSpine accent={accent} Icon={Icon} withLine={withLine} />
       <div className="cert-card" style={{ '--cert-accent': accent }}>
         <div className="cert-card-top">
           <div className="cert-left">
@@ -403,17 +450,10 @@ function CertRow({ id, title, issuer, issued, expires, accent, tag, icon, level,
                 <span className="cert-date-label">ISSUED</span>
                 <span className="cert-date-val">{issued}</span>
               </div>
-              {expires ? (
-                <div className="cert-date-item">
-                  <span className="cert-date-label">EXPIRES</span>
-                  <span className="cert-date-val">{expires}</span>
-                </div>
-              ) : (
-                <div className="cert-date-item">
-                  <span className="cert-date-label">EXPIRES</span>
-                  <span className="cert-date-val cert-date-never">NEVER ✦</span>
-                </div>
-              )}
+              <div className="cert-date-item">
+                <span className="cert-date-label">EXPIRES</span>
+                <span className={`cert-date-val${expires ? '' : ' cert-date-never'}`}>{expires ?? 'No expiry'}</span>
+              </div>
             </div>
           </div>
         </div>
@@ -423,32 +463,24 @@ function CertRow({ id, title, issuer, issued, expires, accent, tag, icon, level,
 }
 
 function Certifications() {
-  const topCerts  = CERTS.slice(0, 3)   // Databricks ML, Databricks GenAI, ML Spec
-  const lastCert  = CERTS[3]             // DSA — Coding Ninjas (last, no line)
+  const topCerts = CERTS.slice(0, 3)
+  const lastCert = CERTS[3]
   return (
     <div className="cert-wrapper">
       <div className="cert-timeline">
-        {topCerts.map((c) => (
-          <CertRow key={c.id} {...c} withLine />
-        ))}
+        {topCerts.map((c) => <CertRow key={c.id} {...c} withLine />)}
 
-        {/* Coursera Learning Log — between ML Spec and DSA */}
         <div className="cert-row">
-          <div className="cert-spine">
-            <div className="cert-spine-icon" style={{ background: '#0056d2', borderColor: '#0056d2' }}>
-              <span className="cert-spine-emoji">📚</span>
-            </div>
-            <div className="cert-spine-line" style={{ background: 'linear-gradient(to bottom, #0056d2, var(--grey-light))' }} />
-          </div>
-          <div className="cert-card" style={{ '--cert-accent': '#0056d2' }}>
+          <CertSpine accent={COURSERA_ACCENT} Icon={FaBookOpen} withLine />
+          <div className="cert-card" style={{ '--cert-accent': COURSERA_ACCENT }}>
             <div className="cert-card-top">
               <div className="cert-left">
                 <span className="cert-level">2021 — 2023</span>
-                <span className="cert-title">Coursera Learning Log</span>
+                <span className="cert-title">Continuous Learning</span>
                 <span className="cert-issuer">Coursera — Online Certifications</span>
               </div>
               <div className="cert-right">
-                <span className="cert-tag">TRAINING ARC</span>
+                <span className="cert-tag">{COURSERA_CERTS.length} COURSES</span>
               </div>
             </div>
             <div className="cert-courses-grid">
@@ -462,173 +494,214 @@ function Certifications() {
           </div>
         </div>
 
-        {/* DSA — Coding Ninjas (last entry, no spine line) */}
         <CertRow key={lastCert.id} {...lastCert} withLine={false} />
       </div>
     </div>
   )
 }
 
-/* ── PLACEHOLDER panel for upcoming sections ── */
-function ComingSoon({ label }) {
+/* ── Awards section ── */
+const AWARDS = [
+  {
+    id: 'applause-2025',
+    level: 'APPLAUSE AWARD',
+    title: 'OKR Delivery & Quality',
+    year: '2025',
+    accent: '#22c55e',
+    Icon: FaAward,
+    quote: 'Hard work and contribution to the project resulted in completion of committed OKRs and quality delivery.',
+  },
+  {
+    id: 'applause-2024',
+    level: 'APPLAUSE AWARD',
+    title: 'Forecasting Model & DW Solver',
+    year: '2024',
+    accent: '#a855f7',
+    Icon: FaAward,
+    quote: 'Took the majority of responsibilities for the DW solver throughout integration and implemented a new DS model that drastically improved forecasting efficiency and reduced errors.',
+  },
+  {
+    id: 'applause-2023',
+    level: 'APPLAUSE AWARD',
+    title: 'PySpark Migration & MLOps',
+    year: '2023',
+    accent: '#3b82f6',
+    Icon: FaAward,
+    quote: 'Took the lead in converting our code to PySpark, setting up model tracking and creating jobs — improving the scalability and organization of our models.',
+  },
+  {
+    id: 'opa-2022',
+    level: 'OUTSTANDING PERFORMANCE AWARD',
+    title: '10x Pipeline Optimization',
+    year: '2022',
+    accent: '#f5c518',
+    Icon: FaTrophy,
+    quote: 'Reduced processing time by more than 10x in many sections of our code, significantly improved code quality and organization, and became the expert in several of our clustering models.',
+  },
+]
+
+function Awards() {
   return (
-    <div className="coming-soon">
-      <span className="coming-soon-bang">!</span>
-      <span className="coming-soon-title">CHAPTER LOADING...</span>
-      <span className="coming-soon-sub">{label} — coming soon</span>
+    <div className="exp-wrapper">
+      <div className="exp-company">
+        <div className="exp-splash">
+          <div className="exp-splash-left">
+            <div className="exp-splash-eyebrow">2022 — 2025</div>
+            <div className="exp-splash-company">DELOITTE <span className="exp-splash-usi">USI</span></div>
+            <div className="exp-splash-tagline">Performance recognition</div>
+          </div>
+          <div className="exp-splash-center">
+            <img src={deloitteIcon} alt="Deloitte USI" className="exp-splash-logo" />
+          </div>
+          <div className="exp-splash-right">
+            <div className="exp-splash-stat">
+              <span className="exp-splash-stat-val">{AWARDS.length}</span>
+            </div>
+            <div className="exp-splash-stat-label">AWARDS</div>
+          </div>
+        </div>
+
+        <div className="cert-timeline">
+          {AWARDS.map(({ id, level, title, year, accent, Icon, quote }, i) => (
+            <div key={id} className="cert-row">
+              <div className="cert-spine">
+                <div className="cert-spine-icon" style={{ background: accent, borderColor: accent }}>
+                  <Icon className="cert-spine-emoji" />
+                </div>
+                {i < AWARDS.length - 1 && <div className="cert-spine-line" style={{ background: `linear-gradient(to bottom, ${accent}, var(--grey-light))` }} />}
+              </div>
+              <div className="cert-card" style={{ '--cert-accent': accent }}>
+                <div className="cert-card-top">
+                  <div className="cert-left">
+                    <span className="cert-level">{level}</span>
+                    <span className="cert-title">{title}</span>
+                    <span className="cert-issuer">Deloitte USI</span>
+                  </div>
+                  <div className="cert-right">
+                    <div className="cert-dates">
+                      <div className="cert-date-item">
+                        <span className="cert-date-label">AWARDED</span>
+                        <span className="cert-date-val">{year}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <p className="award-quote">&ldquo;{quote}&rdquo;</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   )
 }
 
+const SECTIONS = {
+  skills:         TechStack,
+  experience:     Experience,
+  education:      Education,
+  certifications: Certifications,
+  awards:         Awards,
+}
+
 function App() {
   const [active, setActive] = useState('home')
+  const Section = SECTIONS[active]
 
   return (
     <div className="page">
-      <div className="halftone-overlay" />
       <div className="panel-grid" />
 
       <main className="hero-panel">
-        {/* Corner tags */}
-        <span className="corner-tag">ISSUE #001</span>
-        <span className="corner-tag corner-tag--right">2026</span>
-
-        {/* ── Chapter nav tabs ── */}
         <nav className="chapter-nav">
-          {NAV.map(({ id, Icon, label }, i) => (
+          {NAV.map(({ id, Icon, label }) => (
             <button
               key={id}
               className={`chapter-nav-btn${active === id ? ' chapter-nav-btn--active' : ''}`}
               onClick={() => setActive(id)}
             >
-              <span className="chapter-num">#{String(i + 1).padStart(2, '0')}</span>
               <Icon className="chapter-icon" />
               <span className="chapter-label">{label}</span>
             </button>
           ))}
         </nav>
 
-        {/* Action caption */}
         <div className="caption-box caption-box--top">
           {CAPTIONS[active]}
         </div>
 
-        {/* ── Section content ── */}
         {active === 'home' && (
           <div className="hero-layout">
 
-            {/* ── Left: Photo panel ── */}
             <div className="photo-panel">
               <div className="photo-frame">
                 <img src={profilePlaceholder} alt="Mayur G D" className="profile-photo" />
                 <div className="photo-label">MAYUR G D</div>
-                <div className="photo-corner photo-corner--tl">✦</div>
-                <div className="photo-corner photo-corner--br">✦</div>
               </div>
               <div className="badge">
-                <span className="badge-role">DATA SCIENTIST</span>
-                <span className="badge-sep">✦</span>
-                <span className="badge-role">ML ENGINEER</span>
+                <span className="badge-role">SENIOR ML ENGINEER</span>
               </div>
               <div className="hero-social">
                 <a href="https://www.linkedin.com/in/mayur-g-d-a78a1a131/" target="_blank" rel="noopener noreferrer" className="hero-social-link" aria-label="LinkedIn"><FaLinkedin /></a>
                 <a href="https://github.com/mayurgd" target="_blank" rel="noopener noreferrer" className="hero-social-link" aria-label="GitHub"><FaGithub /></a>
                 <a href="https://leetcode.com/u/mayur_356/" target="_blank" rel="noopener noreferrer" className="hero-social-link" aria-label="LeetCode"><SiLeetcode /></a>
+                <a href={RESUME_URL} download={RESUME_FILENAME} className="hero-social-link" aria-label="Download résumé" title="Download résumé"><FaFileDownload /></a>
               </div>
             </div>
 
-            {/* ── Right: Info panel ── */}
             <div className="info-panel">
 
-              {/* Identity block */}
               <div className="name-block">
-                <div className="name-tag">⚡ REAL NAME &nbsp;///&nbsp; DATA OPERATIVE</div>
+                <div className="name-tag">SENIOR ML ENGINEER &nbsp;·&nbsp; WARNER BROS. DISCOVERY</div>
                 <h1 className="hero-name">MAYUR <span className="name-accent">G D</span></h1>
-                <div className="hero-alias">[ ALIAS: THE DATA SPIDER ]</div>
               </div>
 
-              {/* Stat chips */}
               <div className="hero-stats">
-                <div className="hero-stat-chip"><span className="hero-stat-val">5+</span><span className="hero-stat-label">YRS EXP</span></div>
-                <div className="hero-stat-chip"><span className="hero-stat-val">15+</span><span className="hero-stat-label">TECH STACK</span></div>
-                <div className="hero-stat-chip"><span className="hero-stat-val">GEN AI</span><span className="hero-stat-label">SPECIALIST</span></div>
-                <div className="hero-stat-chip"><span className="hero-stat-val">BLR</span><span className="hero-stat-label">BASE</span></div>
+                <div className="hero-stat-chip"><span className="hero-stat-val">{yearsSince(CAREER_START)}+</span><span className="hero-stat-label">YEARS IN ML</span></div>
+                <div className="hero-stat-chip"><span className="hero-stat-val">{AWARDS.length}</span><span className="hero-stat-label">PERFORMANCE AWARDS</span></div>
+                <div className="hero-stat-chip"><span className="hero-stat-val">2×</span><span className="hero-stat-label">DATABRICKS CERTIFIED</span></div>
               </div>
 
-              {/* Speech bubble */}
               <div className="speech-bubble">
                 <p className="bio-text">
-                  I do my best work when there&apos;s a clear direction and something
-                  challenging to achieve. I like thinking things through, moving fast, and
-                  finding ways to improve along the way.
+                  Machine learning engineer with {yearsSince(CAREER_START)}+ years of experience taking
+                  models from prototype to production — forecasting, clustering, and LLM and agentic
+                  AI systems — on Databricks, PySpark and the cloud.
                 </p>
                 <p className="bio-text bio-text--second">
-                  Outside of work, I focus on discipline - fitness, finance, or
-                  learning new skills; because getting better in one area makes
-                  everything else easier.
+                  Previously a data scientist at Deloitte USI, where I cut pipeline runtimes by over
+                  10x, led a PySpark and MLflow migration, and was recognised with four performance
+                  awards. Now building generative AI for audio description at Warner Bros. Discovery.
                 </p>
               </div>
 
-              {/* Contact dossier */}
               <div className="contact-panel">
-                <div className="contact-label">◆ FIELD CONTACT DOSSIER ◆</div>
+                <div className="contact-label">CONTACT</div>
                 <div className="contact-items">
-                  <div className="contact-item">
-                    <span className="contact-icon"><FaPhoneAlt /></span>
-                    <span>+91-9483996212</span>
-                  </div>
                   <div className="contact-item">
                     <span className="contact-icon"><FaEnvelope /></span>
                     <a href="mailto:mayur.dhage356@gmail.com" className="contact-link">mayur.dhage356@gmail.com</a>
                   </div>
                   <div className="contact-item">
-                    <span className="contact-icon"><FaMapMarkerAlt /></span>
-                    <span>Bengaluru, India</span>
+                    <span className="contact-icon"><FaLinkedin /></span>
+                    <a href="https://www.linkedin.com/in/mayur-g-d-a78a1a131/" target="_blank" rel="noopener noreferrer" className="contact-link">LinkedIn</a>
                   </div>
-                </div>
+                  <div className="contact-item">
+                    <span className="contact-icon"><FaFileDownload /></span>
+                    <a href={RESUME_URL} download={RESUME_FILENAME} className="contact-link">Download résumé</a>
+                  </div>                </div>
               </div>
 
             </div>
           </div>
         )}
 
-        {active === 'skills' && (
+        {Section && (
           <div className="section-body section-body--wide">
-            <TechStack />
+            <Section />
           </div>
         )}
-
-        {active === 'experience' && (
-          <div className="section-body section-body--wide">
-            <Experience />
-          </div>
-        )}
-
-        {active === 'education' && (
-          <div className="section-body section-body--wide">
-            <Education />
-          </div>
-        )}
-
-        {active === 'certifications' && (
-          <div className="section-body section-body--wide">
-            <Certifications />
-          </div>
-        )}
-
-        {active !== 'home' && active !== 'skills' && active !== 'experience' && active !== 'education' && active !== 'certifications' && (
-          <div className="section-body">
-            <ComingSoon label={NAV.find(n => n.id === active).label} />
-          </div>
-        )}
-
-        {/* Bottom caption */}
-        <div className="caption-box caption-box--bottom">
-          &ldquo; WITH GREAT DATA COMES GREAT RESPONSIBILITY &rdquo;
-        </div>
       </main>
-
-      <div className="action-word">POW!</div>
     </div>
   )
 }
